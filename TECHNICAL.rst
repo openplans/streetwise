@@ -53,8 +53,7 @@ trees are maintained by ..."). Something like:
                 }
     ...
 
-So, what's in here:
--------------------
+So, what's in here?:
 
 - **Style**: A list of strings describing the scene conditions. How
   light/dark is it, what's the weather, is it a holiday, ...
@@ -138,7 +137,6 @@ The rendering for the scene is taken care of all on the front-end. We grab the
 description of the scene from the server and place the objects accordingly.
 
 Should we go with vector graphics?
-----------------------------------
 
 - Will z-indexing be an issue with transparent PNGs? For example, if you
   have a tree with wide branches, is it going to cover everything behind
