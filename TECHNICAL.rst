@@ -54,44 +54,46 @@ trees are maintained by ..."). Something like:
     ...
 
 So, what's in here:
-    - **Style**: A list of strings describing the scene conditions. How
-      light/dark is it, what's the weather, is it a holiday, ...
-    - **Element Type**: The type will mostly influence the image chosen to
-      represent the element. We will define all the types that we use.
+-------------------
 
-      An incomplete list of types:
+- **Style**: A list of strings describing the scene conditions. How
+  light/dark is it, what's the weather, is it a holiday, ...
+- **Element Type**: The type will mostly influence the image chosen to
+  represent the element. We will define all the types that we use.
 
-      - tree
-      - tree planter
-      - side walk
-      - bike rack
-      - fire hydrant
-      - bike lane
-      - litter
-      - block party
-      - graffiti
-      - traffic light
-      - street sign
-      - transit stop/station
-      - bench
-      - speed bump
-      - trash can
-      - street light
-      - police officer
+  An incomplete list of types:
 
-    - **Element Position**: This refers to the element's position in the scene.
-      We could think of them roughly as ``[x, y, z]`` coordinates. Let's assume
-      that all y-coords are going to be 0 for now. The z-coord can just be a
-      layer designation (corresponding to a ``z-index`` style, for instance).
-      The x- and y-coords can be in whatever units we want (not necessarily
-      pixels) -- maybe 100-pixel blocks on full-size screens, 50-pixel blocks on
-      mobile screens.
-    - **Element information**: I actually don't like the idea of having users
-      enter markup, but the data has to get around some way. Formats to
-      consider: html, markdown (with showdown.js), ... What about just using
-      pre-specified fields? Might be appropriate for some types of elements, but
-      it might be too constraining. We should maybe start with pre-specified
-      fields, and use a more free form necessary.
+  - tree
+  - tree planter
+  - side walk
+  - bike rack
+  - fire hydrant
+  - bike lane
+  - litter
+  - block party
+  - graffiti
+  - traffic light
+  - street sign
+  - transit stop/station
+  - bench
+  - speed bump
+  - trash can
+  - street light
+  - police officer
+
+- **Element Position**: This refers to the element's position in the scene.
+  We could think of them roughly as ``[x, y, z]`` coordinates. Let's assume
+  that all y-coords are going to be 0 for now. The z-coord can just be a
+  layer designation (corresponding to a ``z-index`` style, for instance).
+  The x- and y-coords can be in whatever units we want (not necessarily
+  pixels) -- maybe 100-pixel blocks on full-size screens, 50-pixel blocks on
+  mobile screens.
+- **Element information**: I actually don't like the idea of having users
+  enter markup, but the data has to get around some way. Formats to
+  consider: html, markdown (with showdown.js), ... What about just using
+  pre-specified fields? Might be appropriate for some types of elements, but
+  it might be too constraining. We should maybe start with pre-specified
+  fields, and use a more free form necessary.
 
 A scene description may contain more than will be displayed on the screen at any
 one time (the screen should scroll), but the description could get quite heavy
@@ -136,6 +138,7 @@ The rendering for the scene is taken care of all on the front-end. We grab the
 description of the scene from the server and place the objects accordingly.
 
 Should we go with vector graphics?
+----------------------------------
 
 - Will z-indexing be an issue with transparent PNGs? For example, if you
   have a tree with wide branches, is it going to cover everything behind
