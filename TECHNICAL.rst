@@ -60,23 +60,24 @@ So, what's in here:
       represent the element. We will define all the types that we use.
 
       An incomplete list of types:
-        - tree
-        - tree planter
-        - side walk
-        - bike rack
-        - fire hydrant
-        - bike lane
-        - litter
-        - block party
-        - graffiti
-        - traffic light
-        - street sign
-        - transit stop/station
-        - bench
-        - speed bump
-        - trash can
-        - street light
-        - police officer
+
+      - tree
+      - tree planter
+      - side walk
+      - bike rack
+      - fire hydrant
+      - bike lane
+      - litter
+      - block party
+      - graffiti
+      - traffic light
+      - street sign
+      - transit stop/station
+      - bench
+      - speed bump
+      - trash can
+      - street light
+      - police officer
 
     - **Element Position**: This refers to the element's position in the scene.
       We could think of them roughly as ``[x, y, z]`` coordinates. Let's assume
@@ -135,11 +136,12 @@ The rendering for the scene is taken care of all on the front-end. We grab the
 description of the scene from the server and place the objects accordingly.
 
 Should we go with vector graphics?
-    - Will z-indexing be an issue with transparent PNGs? For example, if you
-      have a tree with wide branches, is it going to cover everything behind
-      it?
-    - Android 2.x's browser doesn't like SVG. Will we have to do a PNG version
-      anyway?
+
+- Will z-indexing be an issue with transparent PNGs? For example, if you
+  have a tree with wide branches, is it going to cover everything behind
+  it, even in the negative/transparent space?
+- Android 2.x's browser doesn't like SVG. Will we have to do a PNG version
+  anyway?
 
 If we go vector, we use SVGWeb to display
 
