@@ -53,7 +53,8 @@ trees are maintained by ..."). Something like:
                 }
     ...
 
-So, what's in here?:
+So, what's in here:
+-------------------
 
 - **Style**: A list of strings describing the scene conditions. How
   light/dark is it, what's the weather, is it a holiday, ...
@@ -89,7 +90,7 @@ So, what's in here?:
   mobile screens.
 - **Element information**: I actually don't like the idea of having users
   enter markup, but the data has to get around some way. Formats to
-  consider: html, markdown (with showdown.js), ... What about just using
+  consider: html, markdown (with `showdown.js`_), ... What about just using
   pre-specified fields? Might be appropriate for some types of elements, but
   it might be too constraining. We should maybe start with pre-specified
   fields, and use a more free form necessary.
@@ -113,7 +114,7 @@ international weather? Either way, we can start there.
 
 Location comes from the user's browser or IP address. If it can't be determined
 from either of those sources, have the user enter in an address/location and
-geolocate it using `some service <http://yonder.aaronogle.com/>`_.
+geolocate it using `some service`_.
 
 For things like what buildings and features are around, we can use population
 density from the census to determine the number, type, and density of houses.
@@ -121,6 +122,9 @@ density from the census to determine the number, type, and density of houses.
 For information about the elements in the scene, we could rely completely on our
 own data set of information. Where data is available, we can use/scrape it to
 prepopulate whatever we can.
+
+.. _some service: Yonder_
+
 
 How do we put it together
 -------------------------
@@ -137,6 +141,7 @@ The rendering for the scene is taken care of all on the front-end. We grab the
 description of the scene from the server and place the objects accordingly.
 
 Should we go with vector graphics?
+----------------------------------
 
 - Will z-indexing be an issue with transparent PNGs? For example, if you
   have a tree with wide branches, is it going to cover everything behind
@@ -156,4 +161,9 @@ Other considerations
 
   The elements would have to be browsable; the application has to have site map
   somewhere. This is definitely possible, and we should do it! We should try to
-  be `ARIA <http://www.w3.org/WAI/intro/aria>`_ compliant.
+  be `ARIA`_ compliant.
+
+
+.. _ARIA: http://www.w3.org/WAI/intro/aria
+.. _showdown.js:  https://github.com/coreyti/showdown
+.. _Yonder: http://yonder.aaronogle.com/
