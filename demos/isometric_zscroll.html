@@ -114,7 +114,7 @@
          * i - The index of the layer (greater is closer to the front)
          */
         function setLayerPosition(s, i, layer) {
-          var xoffset = 100
+          var xoffset = 300
             , yoffset = 100
             , xspacing = 100.0
             , yspacing = 50.0
@@ -122,7 +122,7 @@
             , x = xoffset + i*xspacing - (xspacing/yspacing)*s
             , y = yoffset + i*yspacing - s;
 
-          if (x > 100 && x < 550) {
+          if (x > xoffset && x < xoffset + 450) {
             $(layer).fadeIn('fast');
 //            $(layer).show();
           } else {
