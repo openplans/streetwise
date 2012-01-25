@@ -103,15 +103,26 @@
 
         function setRandomColor(elem) {
           var colors = ['red','green','blue','yellow','purple','grey','orange','brown']
-            , i = Math.floor(Math.random() * 8);
+            , i = Math.floor(Math.random() * colors.length);
           $(elem).css('background-color', colors[i]);
         }
 
+        /**
+         * Set the position (and visibility) of the layer.
+         *
+         * s - The scroll offset of the window
+         * i - The index of the layer (greater is closer to the front)
+         */
         function setLayerPosition(s, i, layer) {
-          var x = i * 100 - 2*s
-            , y = i * 50 - s;
+          var xoffset = 100
+            , yoffset = 100
+            , xspacing = 100.0
+            , yspacing = 50.0
 
-          if (x > 100 && x < 650) {
+            , x = xoffset + i*xspacing - (xspacing/yspacing)*s
+            , y = yoffset + i*yspacing - s;
+
+          if (x > 100 && x < 550) {
             $(layer).fadeIn('fast');
 //            $(layer).show();
           } else {
