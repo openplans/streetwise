@@ -1,0 +1,138 @@
+<html>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+    <style>
+      body {
+        background-color: red;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      #isometric-scene {
+        position: relative;
+        width: 100%;
+        height: 10000px;
+        overflow: hidden;
+      }
+      #isometric-scene > div {
+        position: absolute;
+        width: 300px;
+        border: 1px solid black;
+        display: none;
+      }
+    </style>
+  </head>
+
+  <html>
+
+    <div id="isometric-scene">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <script>
+      $(document).ready(function() {
+        var $layers = $('#isometric-scene > div');
+
+        function setRandomHeight(elem) {
+          $(elem).height(300);
+        }
+
+        function setRandomColor(elem) {
+          var red = (Math.floor(Math.random()*64) + 160).toString(16);
+          var green = (Math.floor(Math.random()*64) + 160).toString(16);
+          var blue = (Math.floor(Math.random()*64) + 160).toString(16);
+          $(elem).css('background-color', red+green+blue);
+        }
+
+        function setLayerPosition(i, layer) {
+          var s = $(window).scrollTop()
+            , x = i * 50 - 2*s
+            , y = i * 25;
+
+          if (x > 100 && x < 600) {
+            $(layer).fadeIn('fast');
+          } else {
+            $(layer).fadeOut('fast');
+          }
+
+          $(layer).offset({left:x, top:y});
+        }
+
+        $.each($layers, function(i, layer) {
+          setRandomHeight(layer);
+          setRandomColor(layer);
+          setLayerPosition(i, layer);
+        });
+
+        $(window).scroll(function() {
+          $.each($layers, setLayerPosition);
+        });
+      });
+    </script>
+
+  </html>
+</html>
