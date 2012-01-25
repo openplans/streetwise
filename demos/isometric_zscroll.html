@@ -4,7 +4,7 @@
 
     <style>
       body {
-        background-color: red;
+        background-color: SkyBlue;
         margin: 0px;
         padding: 0px;
       }
@@ -102,10 +102,9 @@
         }
 
         function setRandomColor(elem) {
-          var red = (Math.floor(Math.random()*64) + 160).toString(16);
-          var green = (Math.floor(Math.random()*64) + 160).toString(16);
-          var blue = (Math.floor(Math.random()*64) + 160).toString(16);
-          $(elem).css('background-color', red+green+blue);
+          var colors = ['red','green','blue','yellow','purple','grey','orange','brown']
+            , i = Math.floor(Math.random() * 8);
+          $(elem).css('background-color', colors[i]);
         }
 
         function setLayerPosition(s, i, layer) {
