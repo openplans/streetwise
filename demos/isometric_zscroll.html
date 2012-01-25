@@ -12,11 +12,11 @@
       #isometric-scene {
         position: relative;
         width: 100%;
-        height: 10000px;
+        height: 2000px;
         overflow: hidden;
       }
       #isometric-scene > div {
-        position: absolute;
+        position: fixed;
         width: 300px;
         border: 1px solid black;
         display: none;
@@ -108,18 +108,19 @@
           $(elem).css('background-color', red+green+blue);
         }
 
-        function setLayerPosition(i, layer) {
-          var s = $(window).scrollTop()
-            , x = i * 50 - 2*s
-            , y = i * 25;
+        function setLayerPosition(s, i, layer) {
+          var x = i * 100 - 2*s
+            , y = i * 50 - s;
 
-          if (x > 100 && x < 600) {
-            $(layer).fadeIn('fast');
+          if (x > 100 && x < 650) {
+//            $(layer).fadeIn('fast');
+            $(layer).show();
           } else {
-            $(layer).fadeOut('fast');
+//            $(layer).fadeOut('fast');
+            $(layer).hide();
           }
 
-          $(layer).offset({left:x, top:y});
+          $(layer).css({left:x+'px', top:y+'px', position:'fixed'});
         }
 
         $.each($layers, function(i, layer) {
@@ -129,7 +130,11 @@
         });
 
         $(window).scroll(function() {
-          $.each($layers, setLayerPosition);
+          var s = $(window).scrollTop();
+          console.log(s);
+          $.each($layers, function(i, layer) {
+            setLayerPosition(s, i, layer);
+          });
         });
       });
     </script>
