@@ -116,21 +116,32 @@
         function setLayerPosition(s, i, layer) {
           var xoffset = 300
             , yoffset = 100
-            , xspacing = 100.0
-            , yspacing = 50.0
+            , xspacing = 75.0
+            , yspacing = 30.0
 
             , x = xoffset + i*xspacing - (xspacing/yspacing)*s
-            , y = yoffset + i*yspacing - s;
+            , y = yoffset + i*yspacing - s
 
-          if (x > xoffset && x < xoffset + 450) {
-            $(layer).fadeIn('fast');
-//            $(layer).show();
+            , n = x-xoffset
+            , o = Math.min(1.0, Math.max(0.0, -(n*(n-400))/20000.0))
+            // To see what the above opacity function looks like, graph it in
+            // a graphing calculator. It should ascend from 0 until somewhere
+            // before n=200, and then descend back to 0 around n=400.
+
+            , $layer = $(layer);
+
+          if (x > xoffset && x < xoffset + 400) {
+            $layer.show();
           } else {
-            $(layer).fadeOut('fast');
-//            $(layer).hide();
+            $layer.hide();
           }
 
-          $(layer).css({left:x+'px', top:y+'px', position:'fixed'});
+          $layer.css({
+            position: 'fixed',
+            left: x+'px',
+            top:  y+'px',
+            opacity: o
+          });
         }
 
         $.each($layers, function(i, layer) {
