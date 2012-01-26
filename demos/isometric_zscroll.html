@@ -126,7 +126,8 @@
             , o = Math.min(1.0, Math.max(0.0, -(n*(n-400))/20000.0))
             // To see what the above opacity function looks like, graph it in
             // a graphing calculator. It should ascend from 0 until somewhere
-            // before n=200, and then descend back to 0 around n=400.
+            // before n=200, and then descend back to 0 around n=400. It is
+            // upper-bounded by 1.0 and lower-bounded by 0.0
 
             , $layer = $(layer);
 
