@@ -62,6 +62,9 @@ var Sesame = Sesame || {};
       });
     };
 
+    /**
+     * Initialize the information box for a scene object.
+     */
     self._setThingInformation = function(label, information, $el) {
       $el.popover({
         title: function() { return label; },
