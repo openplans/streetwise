@@ -54,8 +54,7 @@ var Sesame = Sesame || {};
       $el.css({
         position: 'fixed',
         left: xt+'px',
-        top:  yt+'px',
-        zIndex: z
+        top:  yt+'px'
       });
     };
 

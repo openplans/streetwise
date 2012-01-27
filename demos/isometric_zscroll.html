@@ -16,12 +16,29 @@
         height: 36000px;
         overflow: hidden;
       }
-      #isometric-scene > div.bg {
+
+      #isometric-scene > div.bikelane {
         position: fixed;
         width: 792px;
         height: 462px;
         /*border: 1px solid black;*/
         background: url("../images/bikelane.svg");
+      }
+
+      #isometric-scene > div.sidewalk {
+        position: fixed;
+        width: 817px;
+        height: 487px;
+        /*border: 1px solid black;*/
+        background: url("../images/sidewalk.svg");
+      }
+
+      #isometric-scene > div.road {
+        position: fixed;
+        width: 726px;
+        height: 434px;
+        /*border: 1px solid black;*/
+        background: url("../images/road.svg");
       }
 
       #isometric-scene > div.tree {
@@ -30,6 +47,7 @@
         height: 255px;
         /*border: 1px solid black;*/
         background: url("../images/streettree.svg");
+        z-index: 1000;
       }
     </style>
   </head>
@@ -54,100 +72,106 @@
       <div class="tree"></div>
       <div class="tree"></div>
       <div class="tree"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
-      <div class="bg"></div>
+
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
+      <div class="bikelane"></div>
+      <div class="sidewalk"></div>
+      <div class="road"></div>
     </div>
 
     <script>
-      var WORLD_ANGLE = 59.8,
+      var WORLD_ANGLE = 59.75,
 
       things = [
         {
           selector: ".tree",
-          x: 0,
-          y: -220,
-          z: function(i, $el) { return ($el.height())*i; },
+          x: 375,
+          y: -100,
+          z: function(i, $el) { return 209.5*i - 12; },
 
           angle: WORLD_ANGLE,
           speed: 2
         },
         {
-          selector: ".bg",
-          x: -150,
-          y: -30,
-          z: function(i, $el) { return ($el.height() - 50)*i; },
+          selector: ".bikelane",
+          x: -100,
+          y: -100,
+          z: function(i, $el) { return 419*i; },
+
+          angle: WORLD_ANGLE
+        },
+        {
+          selector: ".sidewalk",
+          x: 88,
+          y: -100,
+          z: function(i, $el) { return 419*i; },
+
+          angle: WORLD_ANGLE
+        },
+        {
+          selector: ".road",
+          x: -500,
+          y: -100,
+          z: function(i, $el) { return 419*i; },
 
           angle: WORLD_ANGLE
         }
