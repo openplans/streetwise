@@ -30,6 +30,9 @@ var Sesame = Sesame || {};
           var $el = $(el),
               z = ($.isFunction(thing.z) ? thing.z(i, $el) : thing.z);
 
+          if (thing.label && thing.information) {
+            self._setThingInformation(thing.label, thing.information, $el);
+          }
           self._renderThing(t, x, y, z, xr, yr, $el);
         });
       });
@@ -58,6 +61,15 @@ var Sesame = Sesame || {};
         top:  yt+'px'
       });
     };
+
+    self._setThingInformation = function(label, information, $el) {
+      $el.popover({
+        title: function() { return label; },
+        content: function() { return information; },
+        trigger: 'hover',
+        offset: 10
+      });
+    }
 
     self.initialize(spec);
     return self;
