@@ -49,6 +49,14 @@
         background: url("../images/streettree.svg");
         z-index: 1000;
       }
+
+      #isometric-scene > div#superman {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        /*border: 1px solid black;*/
+        background: url("../images/superman.png");
+      }
     </style>
   </head>
 
@@ -136,6 +144,8 @@
       <div class="bikelane"></div>
       <div class="sidewalk"></div>
       <div class="road"></div>
+
+      <div id="superman"></div>
     </div>
 
     <script>
@@ -174,6 +184,14 @@
           z: function(i, $el) { return 419*i; },
 
           angle: WORLD_ANGLE
+        },
+        {
+          selector: "#superman",
+          x: 0,
+          y: 0,
+          z: 900,
+
+          angle: 82
         }
       ];
 
