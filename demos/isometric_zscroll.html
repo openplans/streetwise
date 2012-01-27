@@ -5,7 +5,7 @@
 
     <style>
       body {
-        background-color: SkyBlue;
+        background-color: gray;
         margin: 0px;
         padding: 0px;
       }
@@ -18,18 +18,18 @@
       }
       #isometric-scene > div.bg {
         position: fixed;
-        width: 640px;
-        height: 640px;
-        border: 1px solid black;
-        background: url("test_bg.png");
+        width: 792px;
+        height: 462px;
+        /*border: 1px solid black;*/
+        background: url("../images/bikelane.svg");
       }
 
       #isometric-scene > div.tree {
         position: fixed;
-        width: 113px;
-        height: 200px;
-        border: 1px solid black;
-        background: url("tree.jpg");
+        width: 102px;
+        height: 255px;
+        /*border: 1px solid black;*/
+        background: url("../images/streettree.svg");
       }
     </style>
   </head>
@@ -37,6 +37,22 @@
   <html>
 
     <div id="isometric-scene">
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
+      <div class="tree"></div>
       <div class="tree"></div>
       <div class="bg"></div>
       <div class="bg"></div>
@@ -115,23 +131,25 @@
     </div>
 
     <script>
-      var things = [
+      var WORLD_ANGLE = 59.8,
+
+      things = [
         {
           selector: ".tree",
-          x: 500,
-          y: 500,
-          z: 1280, //when tree1 will be at 500, 500 on the screen
+          x: 0,
+          y: -220,
+          z: function(i, $el) { return ($el.height())*i; },
 
-          angle: 30,
+          angle: WORLD_ANGLE,
           speed: 2
         },
         {
           selector: ".bg",
-          x: 0,
-          y: 0,
-          z: function(i, $el) { return $el.height()*i; },
+          x: -150,
+          y: -30,
+          z: function(i, $el) { return ($el.height() - 50)*i; },
 
-          angle: 45
+          angle: WORLD_ANGLE
         }
       ];
 
@@ -145,7 +163,7 @@
         // Adjust the position on scroll
         $window.scroll(function() {
           var t = $window.scrollTop();
-          scene.render(t);
+          scene.render(t*.5);
         });
       });
     </script>
