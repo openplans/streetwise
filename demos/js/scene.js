@@ -21,7 +21,8 @@ var Sesame = Sesame || {};
         var $els = $(thing.selector),
             x = thing.x,
             y = thing.y,
-            angle = thing.angle;
+            xr = thing.xr,
+            yr = thing.yr;
 
         // Each selector above may refer to multiple elements, so loop through
         // any that there are.
@@ -29,7 +30,7 @@ var Sesame = Sesame || {};
           var $el = $(el),
               z = ($.isFunction(thing.z) ? thing.z(i, $el) : thing.z);
 
-          self._renderThing(t, x, y, z, angle, $el);
+          self._renderThing(t, x, y, z, xr, yr, $el);
         });
       });
     };
@@ -41,15 +42,15 @@ var Sesame = Sesame || {};
      * x - starting x
      * y - starting y
      * z - time at which x,y will actually be there on the screen for realz
-     * angle - the direction that $el is moving
+     *
+     * xr - the rate of change of x with respect to s
+     * yr - the rate of change of y wrt s
+     *
      * $el - jQuery object of the element we're positioning
      */
-    self._renderThing = function(s, x, y, z, angle, $el) {
-      var yRate = 1
-        , xRate = yRate * Math.tan(angle * Math.PI / 180)
-
-        , xt = x + (z - s) * xRate
-        , yt = y + (z - s) * yRate;
+    self._renderThing = function(s, x, y, z, xr, yr, $el) {
+      var xt = x + (z - s) * xr
+        , yt = y + (z - s) * yr;
 
       $el.css({
         position: 'fixed',

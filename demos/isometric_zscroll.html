@@ -56,6 +56,7 @@
         height: 256px;
         /*border: 1px solid black;*/
         background: url("../images/superman.png");
+        z-index: 1001;
       }
     </style>
   </head>
@@ -150,50 +151,57 @@
 
     <script>
       var WORLD_ANGLE = 59.75,
+          WORLD_DX = 1.713,
+          WORLD_DY = 1,
 
-      things = [
-        {
-          selector: ".tree",
-          x: 375,
-          y: -100,
-          z: function(i, $el) { return 209.5*i - 12; },
+          things = [
+            {
+              selector: ".tree",
+              x: 375,
+              y: -100,
+              z: function(i, $el) { return 209.5*i - 12; },
 
-          angle: WORLD_ANGLE,
-          speed: 2
-        },
-        {
-          selector: ".bikelane",
-          x: -100,
-          y: -100,
-          z: function(i, $el) { return 419*i; },
+              xr: WORLD_DX,
+              yr: WORLD_DY,
+              speed: 2
+            },
+            {
+              selector: ".bikelane",
+              x: -100,
+              y: -100,
+              z: function(i, $el) { return 419*i; },
 
-          angle: WORLD_ANGLE
-        },
-        {
-          selector: ".sidewalk",
-          x: 88,
-          y: -100,
-          z: function(i, $el) { return 419*i; },
+              xr: WORLD_DX,
+              yr: WORLD_DY
+            },
+            {
+              selector: ".sidewalk",
+              x: 88,
+              y: -100,
+              z: function(i, $el) { return 419*i; },
 
-          angle: WORLD_ANGLE
-        },
-        {
-          selector: ".road",
-          x: -500,
-          y: -100,
-          z: function(i, $el) { return 419*i; },
+              xr: WORLD_DX,
+              yr: WORLD_DY
+            },
+            {
+              selector: ".road",
+              x: -500,
+              y: -100,
+              z: function(i, $el) { return 419*i; },
 
-          angle: WORLD_ANGLE
-        },
-        {
-          selector: "#superman",
-          x: 0,
-          y: 0,
-          z: 900,
+              xr: WORLD_DX,
+              yr: WORLD_DY
+            },
+            {
+              selector: "#superman",
+              x: 0,
+              y: 0,
+              z: 900,
 
-          angle: 82
-        }
-      ];
+              xr: 5,
+              yr: 0.7
+            }
+          ];
 
       $(document).ready(function() {
         var $window = $(window),
