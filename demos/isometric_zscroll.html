@@ -1,6 +1,7 @@
 <html>
   <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="js/scene.js"></script>
 
     <style>
       body {
@@ -114,72 +115,37 @@
     </div>
 
     <script>
-      var things = {
-        "tree1": {
+      var things = [
+        {
+          selector: ".tree",
           x: 500,
           y: 500,
           z: 1280, //when tree1 will be at 500, 500 on the screen
 
           angle: 30,
           speed: 2
+        },
+        {
+          selector: ".bg",
+          x: 0,
+          y: 0,
+          z: function(i, $el) { return $el.height()*i; },
+
+          angle: 45
         }
-      };
+      ];
 
       $(document).ready(function() {
-        var $backgroundEls = $('#isometric-scene > div.bg'),
-            $things = $('#isometric-scene > div:not(.bg)');
+        var $window = $(window),
+            scene = Sesame.Scene(things);
 
-        /**
-         * Set the position (and visibility) of the layer.
-         *
-         * s - The scroll offset of the window
-         * x - starting x
-         * y - starting y
-         * z - time at which x,y will actually be there on the screen for realz
-         * angle - the direction that $el is moving
-         * $el - jQuery object of the element we're positioning
-         */
-        function setLayerPosition(s, x, y, z, angle, $el) {
-          var yRate = 1
-            , xRate = yRate * Math.tan(angle * Math.PI / 180)
+        // Init the scene
+        scene.render(0);
 
-            , xt = x + (z - s) * xRate
-            , yt = y + (z - s) * yRate;
-
-          $el.css({
-            position: 'fixed',
-            left: xt+'px',
-            top:  yt+'px',
-            zIndex: z
-          });
-        }
-
-        // Init the background images
-        $.each($backgroundEls, function(i, el) {
-          var $el = $(el);
-          setLayerPosition(0, 0, 0, ($el.height()*i), 45, $el);
-        });
-
-        $.each($things, function(i, el) {
-          var $el = $(el);
-          setLayerPosition(0, 500, 500, 1281, 45, $el);
-        });
-
-        var $window = $(window);
         // Adjust the position on scroll
-        $(window).scroll(function() {
-          var s = $window.scrollTop();
-          console.log(s);
-          $.each($backgroundEls, function(i, el) {
-            var $el = $(el);
-            setLayerPosition(s, 0, 0, ($el.height()*i), 45, $el);
-          });
-
-          $.each($things, function(i, el) {
-            var $el = $(el);
-            setLayerPosition(s, 500, 500, 1281, 45, $el);
-          });
-
+        $window.scroll(function() {
+          var t = $window.scrollTop();
+          scene.render(t);
         });
       });
     </script>
