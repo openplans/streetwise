@@ -15,12 +15,20 @@
         height: 36000px;
         overflow: hidden;
       }
-      #isometric-scene > div {
+      #isometric-scene > div.bg {
         position: fixed;
         width: 640px;
         height: 640px;
         border: 1px solid black;
         background: url("test_bg.png");
+      }
+
+      #isometric-scene > div.tree {
+        position: fixed;
+        width: 113px;
+        height: 200px;
+        border: 1px solid black;
+        background: url("tree.jpg");
       }
     </style>
   </head>
@@ -28,75 +36,98 @@
   <html>
 
     <div id="isometric-scene">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+      <div class="tree"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
+      <div class="bg"></div>
     </div>
 
     <script>
+      var things = {
+        "tree1": {
+          x: 500,
+          y: 500,
+          z: 1280, //when tree1 will be at 500, 500 on the screen
+
+          angle: 30,
+          speed: 2
+        }
+      };
+
       $(document).ready(function() {
-        var $layers = $('#isometric-scene > div');
+        var $backgroundEls = $('#isometric-scene > div.bg'),
+            $things = $('#isometric-scene > div:not(.bg)');
 
         /**
          * Set the position (and visibility) of the layer.
@@ -112,20 +143,26 @@
           var yRate = 1
             , xRate = yRate * Math.tan(angle * Math.PI / 180)
 
-            , xt = x + z*xRate - (xRate/yRate)*s
-            , yt = y + z*yRate - s;
+            , xt = x + (z - s) * xRate
+            , yt = y + (z - s) * yRate;
 
           $el.css({
             position: 'fixed',
             left: xt+'px',
-            top:  yt+'px'
+            top:  yt+'px',
+            zIndex: z
           });
         }
 
         // Init the background images
-        $.each($layers, function(i, el) {
+        $.each($backgroundEls, function(i, el) {
           var $el = $(el);
           setLayerPosition(0, 0, 0, ($el.height()*i), 45, $el);
+        });
+
+        $.each($things, function(i, el) {
+          var $el = $(el);
+          setLayerPosition(0, 500, 500, 1281, 45, $el);
         });
 
         var $window = $(window);
@@ -133,10 +170,16 @@
         $(window).scroll(function() {
           var s = $window.scrollTop();
           console.log(s);
-          $.each($layers, function(i, el) {
+          $.each($backgroundEls, function(i, el) {
             var $el = $(el);
             setLayerPosition(s, 0, 0, ($el.height()*i), 45, $el);
           });
+
+          $.each($things, function(i, el) {
+            var $el = $(el);
+            setLayerPosition(s, 500, 500, 1281, 45, $el);
+          });
+
         });
       });
     </script>
