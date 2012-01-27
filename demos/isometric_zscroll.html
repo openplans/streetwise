@@ -31,6 +31,14 @@
         /*border: 1px solid black;*/
         background: url("../images/streettree.svg");
       }
+
+      #isometric-scene > div#superman {
+        position: fixed;
+        width: 256px;
+        height: 256px;
+        /*border: 1px solid black;*/
+        background: url("../images/superman.png");
+      }
     </style>
   </head>
 
@@ -128,6 +136,7 @@
       <div class="bg"></div>
       <div class="bg"></div>
       <div class="bg"></div>
+      <div id="superman"></div>
     </div>
 
     <script>
@@ -150,6 +159,14 @@
           z: function(i, $el) { return ($el.height() - 50)*i; },
 
           angle: WORLD_ANGLE
+        },
+        {
+          selector: "#superman",
+          x: 0,
+          y: 0,
+          z: 900,
+
+          angle: 82
         }
       ];
 
