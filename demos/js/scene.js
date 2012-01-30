@@ -82,6 +82,9 @@ var Sesame = Sesame || {};
       })
     };
 
+    /**
+     * Hide the popovers on any elements where they're visible.
+     */
     self.hideAllPopovers = function() {
       $.each(self.spec, function(i, thing) {
         var $els = $(thing.selector);

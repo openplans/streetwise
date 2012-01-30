@@ -2933,6 +2933,43 @@
           </g>
           </svg>
 
+          <svg version="1.1" id="bikerack-template" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	           width="36px" height="59px" viewBox="0 0 36 59" enable-background="new 0 0 36 59" xml:space="preserve">
+          <g>
+	          <g>
+		          <g>
+			          <path fill="#4D4D4D" d="M0,40.5v1C0,43.434,2.686,45,6,45s6-1.566,6-3.5v-1H0z"/>
+			          <ellipse fill="#666666" cx="6" cy="40.5" rx="6" ry="3.5"/>
+		          </g>
+		          <g>
+			          <path fill="#4D4D4D" d="M24,54.5v1c0,1.934,2.686,3.5,6,3.5s6-1.566,6-3.5v-1H24z"/>
+			          <ellipse fill="#666666" cx="30" cy="54.5" rx="6" ry="3.5"/>
+		          </g>
+	          </g>
+	          <path fill="#666666" d="M33,30l-0.009-0.015C32.807,12.279,27.774,0,16,0C9.174,0,3.303,2.857,3.014,15.977L3,16v25h6V17
+		          c0-9,4.404-12.482,9-11c7.75,2.5,8.999,11,9,25v24h6V30z"/>
+	          <path fill="#808080" d="M16,1c0,0,15-0.108,15,29c0,15.255,0,25,0,25l1-0.584V30C32,1,16,1,16,1z"/>
+	          <path fill="#808080" d="M11,6c0,0-4,1-4,10c0,15.255,0,25,0,25l1-0.584V16C8,7,11,6,11,6z"/>
+          </g>
+          </svg>
+
+          <svg version="1.1" id="speedbump-template" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	           width="192px" height="112px" viewBox="0 0 192 112" enable-background="new 0 0 192 112" xml:space="preserve">
+          <g>
+	          <polygon fill="#999999" points="0,91 36,112 45.773,102.8 12.802,87.748 	"/>
+	          <path fill="#F0DC32" d="M156,0.035V0c15.66,1.923,28.749,10.101,36,21L36,112c-7.251-10.899-20.34-19.077-36-21L156,0.035z"/>
+	          <path fill="#B3B3B3" d="M192,21c0,0-47.991-13.994-60-7l-12,7c12-7,60,7,60,7L192,21z"/>
+	          <path fill="#B3B3B3" d="M168,35c0,0-47.991-13.994-60-7l-12,7c12-7,60,7,60,7L168,35z"/>
+	          <path fill="#B3B3B3" d="M144,49c0,0-47.991-13.994-60-7l-12,7c12-7,60,7,60,7L144,49z"/>
+	          <path fill="#B3B3B3" d="M120,63c0,0-47.991-13.994-60-7l-12,7c12-7,60,7,60,7L120,63z"/>
+	          <path fill="#B3B3B3" d="M96,77c0,0-47.991-13.994-60-7l-12,7c12-7,60,7,60,7L96,77z"/>
+	          <path fill="#B3B3B3" d="M72,91c0,0-47.991-13.994-60-7L0,91c12-7,60,7,60,7L72,91z"/>
+	          <path fill="#B3B3B3" d="M36,112l12-7c0,0-12.144-3.541-25.743-6.17C27.895,102.381,32.597,106.885,36,112z"/>
+	          <path fill="#B3B3B3" d="M156,0.035l-11.396,6.646c6.315-3.048,20.646-1.367,33.65,1.147C171.881,3.814,164.309,1.021,156,0V0.035z"
+		          />
+          </g>
+          </svg>
+
         </defs>
 
         <!-- Ground elements -->
@@ -2972,6 +3009,7 @@
 
         <!-- Sidewalk features -->
         <use class="tree" xlink:href="#tree-template" />
+        <use class="bikerack" xlink:href="#bikerack-template" />
         <use class="tree" xlink:href="#tree-template" />
         <use class="tree" xlink:href="#tree-template" />
         <use class="tree" xlink:href="#tree-template" />
@@ -2988,6 +3026,9 @@
         <use class="tree" xlink:href="#tree-template" />
         <use class="tree" xlink:href="#tree-template" />
         <use class="tree" xlink:href="#tree-template" />
+
+        <!-- Things in the street in front of the sidewalk -->
+        <use class="speedbump" xlink:href="#speedbump-template" />
 
         <!-- Superman -->
         <image id="superman" xlink:href="../images/superman.png"
@@ -3037,7 +3078,7 @@
             },
             {
               selector: ".road",
-              x: -430,
+              x: -490,
               y: 0,
               z: function(i, $el) { return 419*i - 419; },
 
@@ -3049,6 +3090,24 @@
               x: 317,
               y: -600,
               z: 419,
+
+              xr: WORLD_DX,
+              yr: WORLD_DY
+            },
+            {
+              selector: ".speedbump",
+              x: -280,
+              y: 0,
+              z: 800,
+
+              xr: WORLD_DX,
+              yr: WORLD_DY
+            },
+            {
+              selector: ".bikerack",
+              x: 445,
+              y: 170,
+              z: 80,
 
               xr: WORLD_DX,
               yr: WORLD_DY
