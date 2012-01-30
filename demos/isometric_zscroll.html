@@ -26,6 +26,7 @@
         height: 462px;
         /*border: 1px solid black;*/
         background: url("../images/bikelane.svg");
+        z-index: 500;
       }
 
       #isometric-scene > div.sidewalk {
@@ -165,7 +166,7 @@
               z: function(i, $el) { return 209.5*i - 12; },
 
               label: 'Street Tree',
-              information: 'This is a street tree.',
+              information: 'Street trees are a key feature of a livable neighborhood. Urban trees have significant and multiple benefits, from energy and water conservation to reduced road maintenance costs. A major transportation benefit is the favorable impact of mature trees on the pedestrian environment, particularly in urban areas. New evidence suggests roadside trees also increase traffic safety. While selecting, planting, and maintaining street trees present challenges, the benefits of trees far outweigh their costs. Cities can maximize these benefits through aggressive tree planting and maintenance programs.',
 
               xr: WORLD_DX,
               yr: WORLD_DY,
@@ -176,6 +177,9 @@
               x: 70,
               y: 0,
               z: function(i, $el) { return 419*i - 419; },
+
+              label: 'Testing',
+              information: 'Testing.',
 
               xr: WORLD_DX,
               yr: WORLD_DY
