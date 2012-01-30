@@ -34,6 +34,7 @@
         <defs>
           <svg id="tree-template" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	           width="102px" height="255px" viewBox="0 0 102 255" enable-background="new 0 0 102 255" xml:space="preserve">
+	        <rect x="0" y="0" width="102" height="255" fill="red" fill-opacity="0" />
           <g>
 	          <g>
 		          <path fill="#999999" d="M54,213l-36,21l36,21l36-21L54,213z"/>
@@ -1958,6 +1959,7 @@
           </svg>
         </defs>
 
+        <!-- Ground elements -->
         <use class="road"     xlink:href="#road-template" />
         <use class="bikelane" xlink:href="#bikelane-template" />
         <use class="sidewalk" xlink:href="#sidewalk-template" />
@@ -1989,9 +1991,7 @@
         <use class="bikelane" xlink:href="#bikelane-template" />
         <use class="sidewalk" xlink:href="#sidewalk-template" />
 
-        <use class="tree" xlink:href="#tree-template" />
-        <use class="tree" xlink:href="#tree-template" />
-        <use class="tree" xlink:href="#tree-template" />
+        <!-- Sidewalk features -->
         <use class="tree" xlink:href="#tree-template" />
         <use class="tree" xlink:href="#tree-template" />
         <use class="tree" xlink:href="#tree-template" />
@@ -2010,6 +2010,7 @@
         <use class="tree" xlink:href="#tree-template" />
         <use class="tree" xlink:href="#tree-template" />
 
+        <!-- Superman -->
         <image id="superman" xlink:href="../images/superman.png"
                width="256px" height="256px" />
       </svg>
@@ -2085,6 +2086,7 @@
         // Adjust the position on scroll
         $window.scroll(function() {
           var t = $window.scrollTop() * 0.5;
+          scene.hideAllPopovers();
           scene.render(t);
         });
       });

@@ -72,7 +72,20 @@ var Sesame = Sesame || {};
         trigger: 'hover',
         offset: 10
       });
-    }
+    };
+
+    self.hideAllPopovers = function() {
+      $.each(self.spec, function(i, thing) {
+        var $els = $(thing.selector);
+
+        // Each selector above may refer to multiple elements, so loop through
+        // any that there are.
+        $els.each(function(i, el) {
+          var $el = $(el);
+          $el.popover('hide');
+        });
+      });
+    };
 
     self.initialize(spec);
     return self;
