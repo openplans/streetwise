@@ -70,6 +70,7 @@ var Sesame = Sesame || {};
         title: function() { return label; },
         content: function() { return information; },
         trigger: 'hover',
+        html: true,
         offset: 10
       });
     };
