@@ -74,9 +74,11 @@ var Sesame = Sesame || {};
         offset: 10
       });
 
-      $el.click(function() {
+      $el.click(function(evt) {
         self.hideAllPopovers();
         $el.popover('show');
+
+        evt.stopPropagation();
       })
     };
 
