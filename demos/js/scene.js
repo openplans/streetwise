@@ -69,10 +69,15 @@ var Sesame = Sesame || {};
       $el.popover({
         title: function() { return label; },
         content: function() { return information; },
-        trigger: 'hover',
+        trigger: 'manual',
         html: true,
         offset: 10
       });
+
+      $el.click(function() {
+        self.hideAllPopovers();
+        $el.popover('show');
+      })
     };
 
     self.hideAllPopovers = function() {
