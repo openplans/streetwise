@@ -160,8 +160,8 @@
           things = [
             {
               selector: ".tree",
-              x: 375,
-              y: -100,
+              x: 545,
+              y: 0,
               z: function(i, $el) { return 209.5*i - 12; },
 
               label: 'Street Tree',
@@ -173,27 +173,27 @@
             },
             {
               selector: ".bikelane",
-              x: -100,
-              y: -100,
-              z: function(i, $el) { return 419*i; },
+              x: 70,
+              y: 0,
+              z: function(i, $el) { return 419*i - 419; },
 
               xr: WORLD_DX,
               yr: WORLD_DY
             },
             {
               selector: ".sidewalk",
-              x: 88,
-              y: -100,
-              z: function(i, $el) { return 419*i; },
+              x: 258,
+              y: 0,
+              z: function(i, $el) { return 419*i - 419; },
 
               xr: WORLD_DX,
               yr: WORLD_DY
             },
             {
               selector: ".road",
-              x: -500,
-              y: -100,
-              z: function(i, $el) { return 419*i; },
+              x: -330,
+              y: 0,
+              z: function(i, $el) { return 419*i - 419; },
 
               xr: WORLD_DX,
               yr: WORLD_DY
@@ -218,8 +218,8 @@
 
         // Adjust the position on scroll
         $window.scroll(function() {
-          var t = $window.scrollTop();
-          scene.render(t*.5);
+          var t = $window.scrollTop() * 0.5;
+          scene.render(t);
         });
       });
     </script>
