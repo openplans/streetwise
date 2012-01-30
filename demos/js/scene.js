@@ -78,4 +78,20 @@ var Sesame = Sesame || {};
     return self;
   };
 
+
+  S.SVGScene = function(spec) {
+    var self = S.Scene(spec);
+
+    self._renderThing = function(s, x, y, z, xr, yr, $el) {
+      var xt = x + (z - s) * xr
+        , yt = y + (z - s) * yr;
+
+      $el
+        .attr('x', xt+'px')
+        .attr('y', yt+'px');
+    }
+
+    return self;
+  }
+
 })(jQuery, Sesame);
