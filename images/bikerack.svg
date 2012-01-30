@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 13.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 14948)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="36px" height="59px" viewBox="0 0 36 59" enable-background="new 0 0 36 59" xml:space="preserve">
+<g>
+	<g>
+		<g>
+			<path fill="#4D4D4D" d="M0,40.5v1C0,43.434,2.686,45,6,45s6-1.566,6-3.5v-1H0z"/>
+			<ellipse fill="#666666" cx="6" cy="40.5" rx="6" ry="3.5"/>
+		</g>
+		<g>
+			<path fill="#4D4D4D" d="M24,54.5v1c0,1.934,2.686,3.5,6,3.5s6-1.566,6-3.5v-1H24z"/>
+			<ellipse fill="#666666" cx="30" cy="54.5" rx="6" ry="3.5"/>
+		</g>
+	</g>
+	<path fill="#666666" d="M33,30l-0.009-0.015C32.807,12.279,27.774,0,16,0C9.174,0,3.303,2.857,3.014,15.977L3,16v25h6V17
+		c0-9,4.404-12.482,9-11c7.75,2.5,8.999,11,9,25v24h6V30z"/>
+	<path fill="#808080" d="M16,1c0,0,15-0.108,15,29c0,15.255,0,25,0,25l1-0.584V30C32,1,16,1,16,1z"/>
+	<path fill="#808080" d="M11,6c0,0-4,1-4,10c0,15.255,0,25,0,25l1-0.584V16C8,7,11,6,11,6z"/>
+</g>
+</svg>
