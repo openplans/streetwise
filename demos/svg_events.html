@@ -3307,8 +3307,8 @@
 <!--        <use class="storefront" xlink:href="#storefront-template" />-->
 
         <!-- Superman -->
-<!--        <image id="superman" xlink:href="../images/superman.png"-->
-<!--               width="256px" height="256px" />-->
+        <image id="superman" xlink:href="../images/superman.png"
+               width="256px" height="256px" />
       </svg>
     </div>
 
@@ -3413,14 +3413,32 @@
               y: 1,
               z: 600
             },
+
             {
               selector: "#superman",
-              x: 0,
-              y: 0,
-              z: 900,
+              x: function(t) {
+                var start = 0,
+                    p = t-start;
 
-              xr: 5,
-              yr: 0.7
+                if (p < 0)
+                  return 30;
+                else if (p > 120)
+                  return -30;
+                else
+                  return 30 - (p/2.0);
+              },
+              y: 30,
+              z: function(t) {
+                var start = 0,
+                    p = t-start;
+
+                if (p < 0)
+                  return 120;
+                else if (p > 120)
+                  return 60;
+                else
+                  return 120 - (p/2.0);
+              }
             }
           ];
 
