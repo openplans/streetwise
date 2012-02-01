@@ -3037,9 +3037,11 @@
     </div>
 
     <script>
-      var WORLD_ANGLE = 59.75,
-          WORLD_DX = 1.713,
-          WORLD_DY = 1,
+      var WORLD_PROJECTION = {
+            XR_x: 12, YR_x: -7,
+            XR_y:  0, YR_y: -10,
+            XR_z: 12, YR_z:  7
+          },
 
           things = [
             {
@@ -3124,15 +3126,15 @@
           ];
 
       $(document).ready(function() {
-        var $window = $(window),
-            scene = Sesame.SVGScene(things);
+        var $window = $(window);
+            scene = Sesame.SVGScene(things, WORLD_PROJECTION);
 
         // Init the scene
         scene.render(0);
 
         // Adjust the position on scroll
         $window.scroll(function() {
-          var t = $window.scrollTop() * 0.5;
+          var t = $window.scrollTop() * 0.1;
           scene.hideAllPopovers();
           scene.render(t);
         });
