@@ -2984,14 +2984,14 @@
 
         <!-- Ground elements -->
         <use class="road"     xlink:href="#road-template" />
-        <use class="bikelane" xlink:href="#bikelane-template" />
         <use class="sidewalk" xlink:href="#sidewalk-template" />
         <use class="road"     xlink:href="#road-template" />
-        <use class="bikelane" xlink:href="#bikelane-template" />
         <use class="sidewalk" xlink:href="#sidewalk-template" />
         <use class="road"     xlink:href="#road-template" />
-        <use class="bikelane" xlink:href="#bikelane-template" />
         <use class="sidewalk" xlink:href="#sidewalk-template" />
+        <use class="road"     xlink:href="#road-template" />
+        <use class="sidewalk" xlink:href="#sidewalk-template" />
+
         <use class="road"     xlink:href="#road-template" />
         <use class="bikelane" xlink:href="#bikelane-template" />
         <use class="sidewalk" xlink:href="#sidewalk-template" />
@@ -3055,22 +3055,10 @@
 
           things = [
             {
-              selector: ".tree",
-              x: 6,
-              y: 1,
-              z: function(i, $el) { return 20*i + 3.5; },
-
-              label: 'Street Tree',
-              information: '<p>Street trees are a key feature of a livable neighborhood. Urban trees have significant and multiple benefits, from energy and water conservation to reduced road maintenance costs. A major transportation benefit is the favorable impact of mature trees on the pedestrian environment, particularly in urban areas. New evidence suggests roadside trees also increase traffic safety. While selecting, planting, and maintaining street trees present challenges, the benefits of trees far outweigh their costs. Cities can maximize these benefits through aggressive tree planting and maintenance programs.</p><p>For more information see <a href="http://streetswiki.wikispaces.com/Street+Trees">the WikiStreets entry</a>.</p>'
-            },
-            {
-              selector: ".bikelane",
-              x: 0,
+              selector: ".road",
+              x: -20,
               y: 0,
-              z: function(i, $el) { return 60*i; },
-
-              label: 'Bike Lanes',
-              information: 'A Bike Lane is defined as a portion of the roadway that has been designated by striping, signage, and pavement markings for the preferential or exclusive use of bicyclists.[1] Though they are not bound by physical barriers such as bollards, medians or curbs, they do indicate where cyclists may travel with limited interference from cars. Bike lanes facilitate the predictable movement between cyclists and vehicles and often incorporate various markings and buffers for safer travel.'
+              z: function(i, $el) { return 60*i; }
             },
             {
               selector: ".sidewalk",
@@ -3078,29 +3066,45 @@
               y: 0,
               z: function(i, $el) { return 60*i; }
             },
+
             {
-              selector: ".road",
-              x: -20,
+              selector: ".bikelane",
+              x: 0,
               y: 0,
-              z: function(i, $el) { return 60*i; }
+              z: function(i, $el) { return 60*i + 240; },
+
+              label: 'Bike Lanes',
+              information: 'A Bike Lane is defined as a portion of the roadway that has been designated by striping, signage, and pavement markings for the preferential or exclusive use of bicyclists.[1] Though they are not bound by physical barriers such as bollards, medians or curbs, they do indicate where cyclists may travel with limited interference from cars. Bike lanes facilitate the predictable movement between cyclists and vehicles and often incorporate various markings and buffers for safer travel.'
             },
+
             {
-              selector: ".storefront",
-              x: 14,
+              selector: ".tree",
+              x: 6,
               y: 1,
-              z: 60
-            },
-            {
-              selector: ".speedbump",
-              x: -15,
-              y: 0,
-              z: 40
+              z: function(i, $el) { return 20*i + 3.5 + 480; },
+
+              label: 'Street Tree',
+              information: '<p>Street trees are a key feature of a livable neighborhood. Urban trees have significant and multiple benefits, from energy and water conservation to reduced road maintenance costs. A major transportation benefit is the favorable impact of mature trees on the pedestrian environment, particularly in urban areas. New evidence suggests roadside trees also increase traffic safety. While selecting, planting, and maintaining street trees present challenges, the benefits of trees far outweigh their costs. Cities can maximize these benefits through aggressive tree planting and maintenance programs.</p><p>For more information see <a href="http://streetswiki.wikispaces.com/Street+Trees">the WikiStreets entry</a>.</p>'
             },
             {
               selector: ".bikerack",
               x: 7,
               y: 1,
-              z: 34
+              z: 34 + 480
+            },
+
+            {
+              selector: ".speedbump",
+              x: -15,
+              y: 0,
+              z: 540
+            },
+
+            {
+              selector: ".storefront",
+              x: 14,
+              y: 1,
+              z: 600
             },
             {
               selector: "#superman",
