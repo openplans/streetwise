@@ -25,8 +25,6 @@ var Sesame = Sesame || {};
     self.render = function(t) {
       $.each(self.spec, function(i, thing) {
         var $els = $(thing.selector),
-            x = thing.x,
-            y = thing.y,
             xr_x = (thing.xr_x !== undefined ? thing.xr_x : self.projection.XR_x),
             yr_x = (thing.yr_x !== undefined ? thing.yr_x : self.projection.YR_x),
             xr_y = (thing.xr_y !== undefined ? thing.xr_y : self.projection.XR_y),
@@ -38,7 +36,9 @@ var Sesame = Sesame || {};
         // any that there are.
         $els.each(function(i, el) {
           var $el = $(el),
-              z = ($.isFunction(thing.z) ? thing.z(i, $el) : thing.z);
+              x = ($.isFunction(thing.x) ? thing.x(t, i, $el) : thing.x),
+              y = ($.isFunction(thing.y) ? thing.y(t, i, $el) : thing.y),
+              z = ($.isFunction(thing.z) ? thing.z(t, i, $el) : thing.z);
 
           if (thing.label && thing.information) {
             self._setThingInformation(thing.label, thing.information, $el);
