@@ -77,12 +77,12 @@ var Sesame = Sesame || {};
       // world x, y, and z values using the xr and yr components.  Offset the
       // z value by s.  This is the matrix transformation:
       //
-      //              [xr_x, yr_x]
-      //  [x, y, z] * [xr_y, yr_y] = [px, py]
-      //              [xr_z, yr_z]
+      //                  [xr_x, yr_x]
+      //  [x, y, (z-s)] * [xr_y, yr_y] = [px, py]
+      //                  [xr_z, yr_z]
       //
-      var px = x*xr_x + y*xr_y + z*xr_z - s*xr_z
-        , py = x*yr_x + y*yr_y + z*yr_z - s*yr_z;
+      var px = x*xr_x + y*xr_y + (z-s)*xr_z
+        , py = x*yr_x + y*yr_y + (z-s)*yr_z;
 
       $el.css({
         position: 'fixed',
@@ -136,12 +136,13 @@ var Sesame = Sesame || {};
     var self = S.Scene(spec, projection);
 
     self._renderThing = function(s, x, y, z, xr_x, yr_x, xr_y, yr_y, xr_z, yr_z, $el) {
-      var xt = x*xr_x + y*xr_y + z*xr_z - s*xr_z
-        , yt = x*yr_x + y*yr_y + z*yr_z - s*yr_z;
+      // See the comment for Scene._renderThing(...) for more information.
+      var px = x*xr_x + y*xr_y + (z-s)*xr_z
+        , py = x*yr_x + y*yr_y + (z-s)*yr_z;
 
       $el
-        .attr('x', xt+'px')
-        .attr('y', yt+'px');
+        .attr('x', px+'px')
+        .attr('y', py+'px');
     }
 
     return self;
