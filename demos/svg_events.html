@@ -3212,7 +3212,7 @@
 
       $(document).ready(function() {
          $window = $(window);
-            scene = Sesame.SVGScene(spec, '#scene-buffer', WORLD_PROJECTION);
+            scene = new Sesame.SVGScene(spec, '#scene-buffer', WORLD_PROJECTION);
 
         // Init the scene
         scene.render(0);

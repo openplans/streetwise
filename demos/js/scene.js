@@ -3,29 +3,54 @@ var Sesame = Sesame || {};
 (function($, S) {
   'use strict';
 
+  /**
+   * Constructs a Scene.
+   *
+     spec - The object that specifies the scene.  A spec has 'things' and
+            'popups'.  A thing must at least have a position specified by x, y,
+            and z coordinates, and a type string.  The type string will be used
+            to find the template element for the thing.
+
+            A popup must at least have a label and a content string. Also, it
+            should either have a selector, or a pair of start and end times. If
+            it has a selector, it will be constructed as a popover, attached to
+            each of the elements identified by the selector. If it has no
+            selector but has start and end, it will be constructed as a modal
+            and appear when the time (scroll position) is between start and end.
+
+     selector - The jQuery of the element that will serve as the container for
+                the scene elements.
+
+     projection - An object defining how scene coordinates should be translated
+                  into screen coordinates.
+   */
   S.Scene = function(spec, selector, projection) {
-    var self = {};
-
-    self.selector = selector;
-
-    self.projection = $.extend({
+    this.selector = selector;
+    this.projection = $.extend({
         XR_x: 1,     YR_x: 0,
         XR_y: 0,     YR_y: -1,
         XR_z: 0.707, YR_z: 0.707
       }, projection);
 
+    this.initialize(spec);
+    return this;
+  };
+
+  $.extend(S.Scene.prototype, {
+
     /**
      * Set (or reset) the spec for the scene.
      */
-    self.initialize = function(spec) {
-      var $container = $(self.selector);
-      $container.empty();
+    initialize: function(spec) {
+      var self = this,
+          $container = $(self.selector);
 
+      $container.empty();
       self.spec = spec;
 
       // Initialize all the things
       $.each(spec.things, function(i, thing) {
-        thing.$el = self._makeThingEelement(thing);
+        thing.$el = self._makeThingElement(thing);
         $container.append(thing.$el);
       });
 
@@ -33,19 +58,20 @@ var Sesame = Sesame || {};
       $.each(spec.popups, function(i, popup) {
         popup.$el = self._makePopup(popup);
       });
-    };
+    },
 
     /**
-     * Create a thing element to be added to the scene's parent.
+     * Create a thing element to be added to the scene's parent.  Derived
+     * classes can override this method to use different elements to show the
+     * scene things (i.e., for SVG, mobile, etc.).
      */
-    self._makeThingEelement = function(thing) {
-      var $template = $('#' + thing.type + '-template'),
-          el = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      el.setAttribute('class', thing.type);
-      $(el).append($template.clone().attr('id', ''));
-
-      return $(el);
-    };
+    _makeThingElement: function(thing) {
+      // Not Implemented Here!!
+      // See SVGScene._makeThingElement(...).
+      //
+      //var self = this;
+      //return $(el);
+    },
 
     /**
      * Create a popup from the spec information.  If there is a selector in the
@@ -53,7 +79,9 @@ var Sesame = Sesame || {};
      * referred to by the selector.  If there is no selector, create a modal
      * box.
      */
-    self._makePopup = function(popup) {
+    _makePopup: function(popup) {
+      var self = this;
+
       // If there's a selector specified, then use a bootstrap popover.
       if (popup.selector !== undefined) {
         var $els = $(popup.selector);
@@ -80,17 +108,19 @@ var Sesame = Sesame || {};
 
       // If there's no selector defined, use a modal.
       else {
-        var $el = $('<div class="modal fade"><div class="modal-header"><h3>' + popup.label + '</h3></div><div class="modal-body">' + popup.content + '</div></div>');
+        var $el = $('<div class="modal fade"><div class="modal-header"><a class="close" data-dismiss="modal">&times;</a><h3>' + popup.label + '</h3></div><div class="modal-body">' + popup.content + '</div></div>');
         $el.modal();
 
         return $el;
       }
-    };
+    },
 
     /**
      * Render all of the objects in the scene.
      */
-    self.render = function(t) {
+    render: function(t) {
+      var self = this;
+
       $.each(self.spec.things, function(i, thing) {
         var $el = thing.$el,
             xr_x = (thing.xr_x !== undefined ? thing.xr_x : self.projection.XR_x),
@@ -110,12 +140,14 @@ var Sesame = Sesame || {};
       $.each(self.spec.popups, function(i, popup) {
         var $el = popup.$el;
         if (popup.start !== undefined && popup.end !== undefined) {
-          self._renderPopup(t, popup.start, popup.end, $el);
+          self._renderPopupModal(t, popup.start, popup.end, $el);
         }
       });
-    };
+    },
 
-    self._renderPopup = function(t, start, end, $el) {
+    _renderPopupModal: function(t, start, end, $el) {
+      var self = this;
+
       if (t >= start && t < end) {
         if ($el.filter(":visible").length == 0)
           $el.modal('show');
@@ -125,7 +157,7 @@ var Sesame = Sesame || {};
         if ($el.filter(":visible").length > 0)
           $el.modal('hide');
       }
-    };
+    },
 
     /**
      * Render a single object.  Requires projection from the thing's world
@@ -151,7 +183,7 @@ var Sesame = Sesame || {};
      *
      * $el - jQuery object of the element we're positioning
      */
-    self._renderThing = function(s, x, y, z, xr_x, yr_x, xr_y, yr_y, xr_z, yr_z, $el) {
+    _renderThing: function(s, x, y, z, xr_x, yr_x, xr_y, yr_y, xr_z, yr_z, $el) {
       // Calculate the projected x (px) and y (py) values from the thing's
       // world x, y, and z values using the xr and yr components.  Offset the
       // z value by s.  This is the matrix transformation:
@@ -160,7 +192,8 @@ var Sesame = Sesame || {};
       //  [x, y, (z-s)] * [xr_y, yr_y] = [px, py]
       //                  [xr_z, yr_z]
       //
-      var px = x*xr_x + y*xr_y + (z-s)*xr_z
+      var self = this
+        , px = x*xr_x + y*xr_y + (z-s)*xr_z
         , py = x*yr_x + y*yr_y + (z-s)*yr_z;
 
       $el.css({
@@ -168,12 +201,14 @@ var Sesame = Sesame || {};
         left: px+'px',
         top:  py+'px'
       });
-    };
+    },
 
     /**
      * Hide the popovers on any elements where they're visible.
      */
-    self.hideAllPopovers = function() {
+    hideAllPopovers: function() {
+      var self = this;
+
       $.each(self.spec.popups, function(i, popup) {
         if (popup.selector === undefined) return;
         var $els = $(popup.selector);
@@ -185,20 +220,21 @@ var Sesame = Sesame || {};
           $el.popover('hide');
         });
       });
-    };
-
-    self.initialize(spec);
-    return self;
-  };
+    }
+  });
 
 
   /**
    * A subclass of Scene that assumes an SVG context.
    */
   S.SVGScene = function(spec, selector, projection) {
-    var self = S.Scene(spec, selector, projection);
+    return S.Scene.call(this, spec, selector, projection)
+  };
 
-    self._renderThing = function(s, x, y, z, xr_x, yr_x, xr_y, yr_y, xr_z, yr_z, $el) {
+  $.extend(S.SVGScene.prototype, S.Scene.prototype, {
+    _renderThing: function(s, x, y, z, xr_x, yr_x, xr_y, yr_y, xr_z, yr_z, $el) {
+      var self = this;
+
       // See the comment for Scene._renderThing(...) for more information.
       var px = x*xr_x + y*xr_y + (z-s)*xr_z
         , py = x*yr_x + y*yr_y + (z-s)*yr_z;
@@ -207,12 +243,11 @@ var Sesame = Sesame || {};
         .attr('x', px+'px')
         .attr('y', py+'px')
         .css('overflow', 'visible');
+    },
 
-//      $el
-//        .attr('transform', 'translate(' + px + ', ' + py + ')');
-    }
+    _makeThingElement: function(thing) {
+      var self = this;
 
-    self._makeThingEelement = function(thing) {
       // See the comment for Scene._makeThingElement(...).  This version
       // assumes an SVG context.
       var $template = $('#' + thing.type + '-template'),
@@ -221,9 +256,7 @@ var Sesame = Sesame || {};
       $(el).append($template.clone().attr('id', ''));
 
       return $(el);
-    };
-
-    return self;
-  }
+    }
+  });
 
 })(jQuery, Sesame);
