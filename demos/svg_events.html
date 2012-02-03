@@ -17,7 +17,7 @@
       #isometric-scene {
         position: relative;
         width: 100%;
-        height: 28800px;
+        height: 10800px;
         overflow: hidden;
       }
 
@@ -32,6 +32,8 @@
         text-align: center;
         border: 1px solid black;
         background-color: white;
+        position: relative;
+        z-index: 11000;
       }
       .popover .content p p {
         margin-bottom: 1em;
@@ -3258,6 +3260,7 @@
           SPEEDBUMP_SOUTH_X = SPEEDBUMP_NORTH_X - 15,
 
           WALKING_BOUNCE = function(t) { return 2 - Math.abs(Math.cos(t/5.0)); },
+          PARTY_BOUNCE = function(c) { return function(t) { return WALKING_BOUNCE(t*c) * 3; }; }
 
           spec = {
             popups: [
@@ -3279,21 +3282,6 @@
               { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 6 * ROAD_SPACING },
               { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 7 * ROAD_SPACING },
               { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 8 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 9 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 10 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 11 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 12 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 13 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 14 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 15 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 16 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 17 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 18 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 19 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 20 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 21 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 22 * ROAD_SPACING },
-              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 23 * ROAD_SPACING },
 
               { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 0 * SIDEWALK_SPACING },
               { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 1 * SIDEWALK_SPACING },
@@ -3305,6 +3293,7 @@
               { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 7 * SIDEWALK_SPACING },
               { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 8 * SIDEWALK_SPACING },
               { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 9 * SIDEWALK_SPACING },
+              { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 10 * SIDEWALK_SPACING },
 
               { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 10 },
               { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 45 },
@@ -3319,9 +3308,12 @@
               { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 370 },
               { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 405 },
 
+              { type: "storefront", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 450 },
+              { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 485 },
+              { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 520 },
+
               // This person will quickly walk down the street.
               { type: "person-standing", x: WIDE_SIDEWALK_X + 5, y: WALKING_BOUNCE, z: function(t) { return 85 + t; } },
-              { type: "person-standing", x: WIDE_SIDEWALK_X + 3, y: WALKING_BOUNCE, z: function(t) { return 385 - t; } },
 
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 150 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 180 + 3.5 },
@@ -3329,8 +3321,27 @@
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 240 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 270 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 300 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 330 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 360 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 390 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 420 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 450 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 480 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 510 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 540 + 3.5 },
+
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
 
               { type: "bikerack", x: WIDE_SIDEWALK_BIKERACK_X, y: WIDE_SIDEWALK_BIKERACK_Y, z: 240 + 13.5 },
               { type: "bikerack", x: WIDE_SIDEWALK_BIKERACK_X, y: WIDE_SIDEWALK_BIKERACK_Y, z: 300 + 13.5 },
