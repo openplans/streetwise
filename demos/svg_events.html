@@ -17,7 +17,7 @@
       #isometric-scene {
         position: relative;
         width: 100%;
-        height: 14400px;
+        height: 28800px;
         overflow: hidden;
       }
 
@@ -3251,17 +3251,21 @@
           WIDE_SIDEWALK_TREE_X = WIDE_SIDEWALK_X,
           WIDE_SIDEWALK_TREE_Y = WIDE_SIDEWALK_Y + 1,
 
-          WIDE_SIDEWALK_BIKERACK_X = WIDE_SIDEWALK_X,
+          WIDE_SIDEWALK_BIKERACK_X = WIDE_SIDEWALK_X + 1,
           WIDE_SIDEWALK_BIKERACK_Y = WIDE_SIDEWALK_Y + 1,
 
-          SPEEDBUMP_NORTH_X = WIDE_SIDEWALK_X - 14
-          SPEEDBUMP_SOUTH_X = SPEEDBUMP_NORTH_X - 15
+          SPEEDBUMP_NORTH_X = WIDE_SIDEWALK_X - 14,
+          SPEEDBUMP_SOUTH_X = SPEEDBUMP_NORTH_X - 15,
+
+          WALKING_BOUNCE = function(t) { return 2 - Math.abs(Math.cos(t/5.0)); },
 
           spec = {
             popups: [
               { label: "Welcome to CHANGE STREET (NYC Edition)", content: "How could your block be different? Let's take a walk down Change St.", start: 0, end: 30 },
-              { label: "Street trees!", content: '<p>Street trees are a key feature of a livable neighborhood. Urban trees have significant and multiple benefits, from energy and water conservation to reduced road maintenance costs. A major transportation benefit is the favorable impact of mature trees on the pedestrian environment, particularly in urban areas. New evidence suggests roadside trees also increase traffic safety. While selecting, planting, and maintaining street trees present challenges, the benefits of trees far outweigh their costs. Cities can maximize these benefits through aggressive tree planting and maintenance programs.</p><p>For more information see <a href="http://streetswiki.wikispaces.com/Street+Trees">the WikiStreets entry</a>.</p>', start: 60, end: 180 },
-              { label: "Street trees!", content: '<p>Street trees are a key feature of a livable neighborhood. Urban trees have significant and multiple benefits, from energy and water conservation to reduced road maintenance costs. A major transportation benefit is the favorable impact of mature trees on the pedestrian environment, particularly in urban areas. New evidence suggests roadside trees also increase traffic safety. While selecting, planting, and maintaining street trees present challenges, the benefits of trees far outweigh their costs. Cities can maximize these benefits through aggressive tree planting and maintenance programs.</p><p>For more information see <a href="http://streetswiki.wikispaces.com/Street+Trees">the WikiStreets entry</a>.</p>', selector: '.tree' }
+              { label: "Street trees!", content: '<p>Street trees are a key feature of a livable neighborhood. Urban trees have significant and multiple benefits, from energy and water conservation to reduced road maintenance costs. A major transportation benefit is the favorable impact of mature trees on the pedestrian environment, particularly in urban areas. New evidence suggests roadside trees also increase traffic safety. While selecting, planting, and maintaining street trees present challenges, the benefits of trees far outweigh their costs. Cities can maximize these benefits through aggressive tree planting and maintenance programs.</p><p>Click on a tree to see how you can get one on your street. For more information see <a href="http://streetswiki.wikispaces.com/Street+Trees">the WikiStreets entry</a>.</p>', start: 60, end: 120 },
+              { label: "Street tree", content: '<p>New York City is planting one million new trees. Request a street tree from the <a href="http://www.nycgovparks.org/" target="_blank">Department of Parks and Recreation</a>.</p>', selector: '.tree' },
+              { label: "Bike racks!", content: '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p>Click on a rack to see how you can get one on your street.</p>', start: 150, end: 210 },
+              { label: "Bike rack", content: '<p>Request a bike rack from your local community board - find your board <a href="http://www.google.com/" target="_blank">here</a>.</p>', selector: '.bikerack' }
             ],
 
             things: [
@@ -3301,20 +3305,33 @@
               { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 8 * SIDEWALK_SPACING },
               { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 9 * SIDEWALK_SPACING },
 
-              { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 0 },
-              { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 35 },
+              { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 10 },
+              { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 45 },
+              { type: "storefront", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 80 },
+
+              { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 180 },
+              { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 215 },
+              { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 250 },
+              { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 285 },
 
               // This person will quickly walk down the street.
-              { type: "person-standing", x: WIDE_SIDEWALK_X + 4, y: function(t) { return -Math.cos(t/3.0) + 2; }, z: function(t) { return 60 + t/1.2; } },
+              { type: "person-standing", x: WIDE_SIDEWALK_X + 5, y: WALKING_BOUNCE, z: function(t) { return 85 + t; } },
+              { type: "person-standing", x: WIDE_SIDEWALK_X + 3, y: WALKING_BOUNCE, z: function(t) { return 385 - t; } },
 
-              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 120 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 150 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 180 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 210 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 240 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 270 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 300 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 360 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 390 + 3.5 },
 
-              { type: "bikerack", x: WIDE_SIDEWALK_BIKERACK_X, y: WIDE_SIDEWALK_BIKERACK_X, z: 240 + 13.5 },
+              { type: "bikerack", x: WIDE_SIDEWALK_BIKERACK_X, y: WIDE_SIDEWALK_BIKERACK_Y, z: 240 + 13.5 },
+              { type: "bikerack", x: WIDE_SIDEWALK_BIKERACK_X, y: WIDE_SIDEWALK_BIKERACK_Y, z: 300 + 13.5 },
 
-              { type: "speedbump", x: SPEEDBUMP_NORTH_X, y: 0, z: 60 },
-              { type: "speedbump-south", x: SPEEDBUMP_SOUTH_X, y: 0, z: 60 }
+              { type: "speedbump", x: SPEEDBUMP_NORTH_X, y: 0, z: 300 },
+              { type: "speedbump-south", x: SPEEDBUMP_SOUTH_X, y: 0, z: 300 }
             ]
           };
 
@@ -3327,7 +3344,7 @@
 
         // Adjust the position on scroll
         $window.scroll(function() {
-          var t = $window.scrollTop() * 0.1;
+          var t = $window.scrollTop() * 0.05;
           scene.hideAllPopovers();
           scene.render(t);
         });
