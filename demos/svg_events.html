@@ -3053,6 +3053,45 @@
           </g>
           </svg>
 
+          <!-- This speed bump is a stand-in until i get a real one.
+               -->
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+               id="speedbump-south-template" x="0px" y="-91px" width="288px" height="175px"
+               viewBox="0 0 288 175" enable-background="new 0 0 288 175" xml:space="preserve" style="overflow: visible;">
+          <g>
+	          <polygon fill="#B3B3B3" points="0,91 60,126 75.832,96.501 40.832,76.834 	"/>
+	          <g>
+		          <path fill="#999999" d="M216,35c-68.061,39.515-87.94,51.487-156,91c-9.194-16.282-31.742-29.786-60-35
+			          C68.06,51.484,87.939,39.514,156,0C184.256,5.214,206.806,18.719,216,35z"/>
+		          <g>
+			          <path fill="#CCCCCC" d="M170.841,51.219c0.507-1.91,0.952-3.797,1.341-5.66c-24.244-2.155-54.236-2.106-87.544,1.537
+				          c5.235,12.654,7.152,28.905,3.323,47.358c2.45,0.219,4.84,0.46,7.167,0.721c4.511-16.977,4.177-32.288,0.764-44.917
+				          C124.542,48.235,150.113,48.892,170.841,51.219z"/>
+			          <path fill="#CCCCCC" d="M115.482,58.94c11.474,0.083,22.165,0.614,31.914,1.502c0.397-1.867,0.738-3.714,1.022-5.534
+				          c-12.763-0.882-26.936-1.17-42.205-0.683c1.089,7.747,1.083,16.264-0.333,25.376c2.552,0.177,5.049,0.376,7.486,0.597
+				          C114.959,72.726,115.612,65.608,115.482,58.94z"/>
+		          </g>
+	          </g>
+          </g>
+          <g transform="translate(216, 126) rotate(180)">
+	          <path fill="#CCCCCC" d="M120,133.163l7.093-4.128c7.893-4.597,20.166-6.048,33.483,1.637l0.519,0.302
+		          c9.252,5.339,10.354,9.949,9.466,13.338c6.651-0.763,14.323-0.313,23.54,5.007l0.928,0.534
+		          c12.885,7.436,13.689,15.428,4.489,20.778L192,175L120,133.163z M158.396,145.615c3.627-2.113,2.857-5.37-3.408-8.993l-0.207-0.121
+		          c-6.254-3.617-11.33-3.752-14.948-1.644l-0.134,0.075l18.562,10.758L158.396,145.615z M188.721,163.109
+		          c3.779-2.199,3.061-5.75-2.949-9.229l-0.523-0.301c-5.996-3.468-12.098-3.871-15.865-1.678l-0.203,0.118l19.337,11.207
+		          L188.721,163.109z"/>
+	          <path fill="#CCCCCC" d="M197.316,147.165l-51.072-29.444l8.099-4.714l52.378,30.122c6.555,3.771,10.646,4.403,12.74,3.186
+		          c2.092-1.219,0.973-3.581-5.588-7.346l-52.436-30.092l8.1-4.714l51.254,29.342c15.334,8.78,17.236,15.652,10.469,19.589
+		          C224.494,157.029,212.597,155.974,197.316,147.165z"/>
+	          <path fill="#CCCCCC" d="M174.234,101.426l8.101-4.716l32.19,11.697l-20.674-18.401l8.102-4.717l72.91,41.346l-7.92,4.609
+		          l-44.189-25.119l21.611,19.195l-0.135,0.078l-33.58-12.229l44.109,25.161l-7.92,4.606L174.234,101.426z"/>
+	          <path fill="#CCCCCC" d="M206.793,82.472l7.301-4.25c8.905-5.186,22.592-4.616,39.65,4.979l0.204,0.114
+		          c16.503,9.283,18.436,17.165,11.007,22.563l-0.066,0.04L288,119l-8.244,4.79L206.793,82.472z M253.134,99.203
+		          c3.131-2.173,1.889-5.883-6.973-10.881l-0.203-0.114c-9.255-5.219-15.481-6.114-19.036-4.045l-0.27,0.155l26.416,14.924
+		          L253.134,99.203z"/>
+          </g>
+          </svg>
+
           <!-- This narrow sidewalk is only 4 units wide (about half the width
                of the wider one), but we want it to match up easily with the
                wide sidewalk, so we'll move it back an additional 4 units.
@@ -3148,13 +3187,22 @@
             XR_z: 12, YR_z:  7
           },
 
-          ROAD_X = -23,
+          ROAD_X = -20,
           ROAD_Y = 0,
           ROAD_SPACING = 60,
 
-          SIDEWALK_X = 6,
-          SIDEWALK_Y = 0,
+          WIDE_SIDEWALK_X = -4,
+          WIDE_SIDEWALK_Y = 0,
           SIDEWALK_SPACING = 60,
+
+          WIDE_SIDEWALK_TREE_X = WIDE_SIDEWALK_X,
+          WIDE_SIDEWALK_TREE_Y = WIDE_SIDEWALK_Y + 1,
+
+          WIDE_SIDEWALK_BIKERACK_X = WIDE_SIDEWALK_X,
+          WIDE_SIDEWALK_BIKERACK_Y = WIDE_SIDEWALK_Y + 1,
+
+          SPEEDBUMP_NORTH_X = WIDE_SIDEWALK_X - 14
+          SPEEDBUMP_SOUTH_X = SPEEDBUMP_NORTH_X - 15
 
           spec = {
             popups: [
@@ -3164,54 +3212,59 @@
             ],
 
             things: [
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 0 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 1 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 2 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 3 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 4 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 5 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 6 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 7 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 8 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 9 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 10 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 11 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 12 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 13 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 14 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 15 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 16 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 17 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 18 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 19 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 20 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 21 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 22 * ROAD_SPACING },
-              { type: "road-double", x: ROAD_X, y: ROAD_Y, z: 23 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 0 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 1 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 2 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 3 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 4 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 5 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 6 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 7 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 8 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 9 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 10 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 11 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 12 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 13 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 14 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 15 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 16 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 17 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 18 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 19 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 20 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 21 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 22 * ROAD_SPACING },
+              { type: "road-dashed", x: ROAD_X, y: ROAD_Y, z: 23 * ROAD_SPACING },
 
-              { type: "sidewalk", x: SIDEWALK_X, y: SIDEWALK_Y, z: 0 * SIDEWALK_SPACING },
-              { type: "sidewalk", x: SIDEWALK_X, y: SIDEWALK_Y, z: 1 * SIDEWALK_SPACING },
-              { type: "sidewalk", x: SIDEWALK_X, y: SIDEWALK_Y, z: 2 * SIDEWALK_SPACING },
-              { type: "sidewalk", x: SIDEWALK_X, y: SIDEWALK_Y, z: 3 * SIDEWALK_SPACING },
-              { type: "sidewalk", x: SIDEWALK_X, y: SIDEWALK_Y, z: 4 * SIDEWALK_SPACING },
-              { type: "sidewalk", x: SIDEWALK_X, y: SIDEWALK_Y, z: 5 * SIDEWALK_SPACING },
-              { type: "sidewalk", x: SIDEWALK_X, y: SIDEWALK_Y, z: 6 * SIDEWALK_SPACING },
-              { type: "sidewalk", x: SIDEWALK_X, y: SIDEWALK_Y, z: 7 * SIDEWALK_SPACING },
-              { type: "sidewalk", x: SIDEWALK_X, y: SIDEWALK_Y, z: 8 * SIDEWALK_SPACING },
-              { type: "sidewalk", x: SIDEWALK_X, y: SIDEWALK_Y, z: 9 * SIDEWALK_SPACING },
+              { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 0 * SIDEWALK_SPACING },
+              { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 1 * SIDEWALK_SPACING },
+              { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 2 * SIDEWALK_SPACING },
+              { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 3 * SIDEWALK_SPACING },
+              { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 4 * SIDEWALK_SPACING },
+              { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 5 * SIDEWALK_SPACING },
+              { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 6 * SIDEWALK_SPACING },
+              { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 7 * SIDEWALK_SPACING },
+              { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 8 * SIDEWALK_SPACING },
+              { type: "sidewalk", x: WIDE_SIDEWALK_X, y: WIDE_SIDEWALK_Y, z: 9 * SIDEWALK_SPACING },
 
-              { type: "tree", x: 6, y: 1, z: 120 + 3.5 },
-              { type: "tree", x: 6, y: 1, z: 180 + 3.5 },
-              { type: "tree", x: 6, y: 1, z: 240 + 3.5 },
+              { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 0 },
+              { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 35 },
 
-              { type: "bikerack", x: 7, y: 1, z: 240 + 13.5 },
 
-              { type: "speedbump", x: -20, y: 0, z: 360 }
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 120 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 180 + 3.5 },
+              { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 240 + 3.5 },
+
+              { type: "bikerack", x: WIDE_SIDEWALK_BIKERACK_X, y: WIDE_SIDEWALK_BIKERACK_X, z: 240 + 13.5 },
+
+              { type: "speedbump", x: SPEEDBUMP_NORTH_X, y: 0, z: 60 },
+              { type: "speedbump-south", x: SPEEDBUMP_SOUTH_X, y: 0, z: 60 }
             ]
           };
 
       $(document).ready(function() {
-         $window = $(window);
+        var $window = $(window);
             scene = new Sesame.SVGScene(spec, '#scene-buffer', WORLD_PROJECTION);
 
         // Init the scene

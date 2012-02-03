@@ -19,10 +19,10 @@ var Sesame = Sesame || {};
             and appear when the time (scroll position) is between start and end.
 
      selector - The jQuery of the element that will serve as the container for
-                the scene elements.
+            the scene elements.
 
      projection - An object defining how scene coordinates should be translated
-                  into screen coordinates.
+            into screen coordinates.
    */
   S.Scene = function(spec, selector, projection) {
     this.selector = selector;
