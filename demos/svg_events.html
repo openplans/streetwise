@@ -46,6 +46,26 @@
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+               id="person-standing-template" x="0px" y="-81px" width="31px" height="90px"
+               viewBox="0 0 31 90" enable-background="new 0 0 31 90" xml:space="preserve">
+          <g>
+	          <g>
+		          <polygon fill="#A3D165" points="12,17 6,13.5 0,17 0,39.5 6,43 12,39.5 		"/>
+		          <polygon fill="#8CC63F" points="6,20.5 6,43 12,39.5 12,17 		"/>
+	          </g>
+	          <polygon fill="#54BCE8" points="27,50 15,38 3,50 3,83 15,90 27,83 	"/>
+	          <polygon fill="#29ABE2" points="15,57 15,90 27,83 27,50 	"/>
+	          <polygon fill="#A3D165" points="27,21 15,14 3,21 3,50 15,57 27,50 	"/>
+	          <polygon fill="#8CC63F" points="15,28 15,57 27,50 27,21 	"/>
+	          <g>
+		          <polygon fill="#A3D165" points="31,28 25,24.5 19,28 19,50.5 25,54 31,50.5 		"/>
+		          <polygon fill="#8CC63F" points="25,31.5 25,54 31,50.5 31,28 		"/>
+	          </g>
+	          <circle fill="#FDD79D" cx="15" cy="12" r="12"/>
+          </g>
+          </svg>
+
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                id="tree-template" x="-20px" y="-233px" width="102px" height="255px"
                viewBox="0 0 102 255" enable-background="new 0 0 102 255" xml:space="preserve">
 	        <rect x="0" y="0" width="102" height="255" fill="red" fill-opacity="0" />
@@ -3251,6 +3271,8 @@
               { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 0 },
               { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 35 },
 
+              // This person will quickly walk down the street.
+              { type: "person-standing", x: WIDE_SIDEWALK_X + 4, y: function(t) { return -Math.cos(t/3.0) + 2; }, z: function(t) { return 60 + t/1.2; } },
 
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 120 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 180 + 3.5 },
