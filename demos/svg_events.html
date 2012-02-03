@@ -37,6 +37,39 @@
         margin-bottom: 1em;
       }
     </style>
+
+    <style>
+      /* Override the Bootstrap modal position */
+      .modal {
+        position: fixed;
+        top: auto;
+        bottom: 10px;
+        left: 10px;
+
+        margin: 0;
+        /*
+        z-index: 11000;
+        width: 560px;
+        margin: -250px 0 0 -280px;
+        background-color: #ffffff;
+        border: 1px solid #999;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        */
+      }
+      .modal.fade {
+        -webkit-transform-style: preserve-3d;
+        -webkit-transition: opacity .3s linear, left .3s ease-out;
+        -moz-transition: opacity .3s linear, left .3s ease-out;
+        -ms-transition: opacity .3s linear, left .3s ease-out;
+        -o-transition: opacity .3s linear, left .3s ease-out;
+        transition: opacity .3s linear, left .3s ease-out;
+        left: -50%;
+      }
+      .modal.fade.in {
+        top: auto;
+        left: 10px;
+      }
+    </style>
   </head>
 
   <body id="bootstrap-js">
