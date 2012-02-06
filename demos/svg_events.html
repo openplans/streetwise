@@ -1393,13 +1393,16 @@
           PARTY_BOUNCE = function(c) { return function(t) { return WALKING_BOUNCE(t*c) * 3; }; }
 
           spec = {
-            popups: [
-              { label: "Welcome to CHANGE STREET (NYC Edition)", content: "How could your block be different? Let's take a walk down Change St.", start: 0, end: 30 },
-              { label: "Street trees!", content: '<p>Street trees are a key feature of a livable neighborhood. Urban trees have significant and multiple benefits, from energy and water conservation to reduced road maintenance costs. A major transportation benefit is the favorable impact of mature trees on the pedestrian environment, particularly in urban areas. New evidence suggests roadside trees also increase traffic safety. While selecting, planting, and maintaining street trees present challenges, the benefits of trees far outweigh their costs. Cities can maximize these benefits through aggressive tree planting and maintenance programs.</p><p>Click on a tree to see how you can get one on your street. For more information see <a href="http://streetswiki.wikispaces.com/Street+Trees">the WikiStreets entry</a>.</p>', start: 60, end: 120 },
+            messages: [
+              { title: "Welcome to CHANGE STREET (NYC Edition)", content: "How could your block be different? Let's take a walk down Change St.", start: 0, end: 30 },
+              { title: "Street trees!", content: '<p>Street trees are a key feature of a livable neighborhood. Urban trees have significant and multiple benefits, from energy and water conservation to reduced road maintenance costs. A major transportation benefit is the favorable impact of mature trees on the pedestrian environment, particularly in urban areas. New evidence suggests roadside trees also increase traffic safety. While selecting, planting, and maintaining street trees present challenges, the benefits of trees far outweigh their costs. Cities can maximize these benefits through aggressive tree planting and maintenance programs.</p><p>Click on a tree to see how you can get one on your street. For more information see <a href="http://streetswiki.wikispaces.com/Street+Trees">the WikiStreets entry</a>.</p>', start: 60, end: 120 },
+              { title: "Bike racks!", content: '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p>Click on a rack to see how you can get one on your street.</p>', start: 150, end: 210 },
+              { title: "Speed bumps!", content: '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', start: 240, end: 300 }
+            ],
+
+            bubbles: [
               { label: "Street tree", content: '<p>New York City is planting one million new trees. Request a street tree from the <a href="http://www.nycgovparks.org/" target="_blank">Department of Parks and Recreation</a>.</p>', selector: '.tree' },
-              { label: "Bike racks!", content: '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p><p>Click on a rack to see how you can get one on your street.</p>', start: 150, end: 210 },
               { label: "Bike rack", content: '<p>Request a bike rack from your local community board - find your board <a href="http://www.google.com/" target="_blank">here</a>.</p>', selector: '.bikerack' },
-              { label: "Speed bumps!", content: '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', start: 240, end: 300 }
             ],
 
             things: [
@@ -1491,7 +1494,7 @@
         // Adjust the position on scroll
         $window.scroll(function() {
           var t = $window.scrollTop() * 0.05;
-          scene.hideAllPopovers();
+//          scene.hideAllPopovers();
           scene.render(t);
         });
 

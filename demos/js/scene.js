@@ -54,9 +54,14 @@ var Sesame = Sesame || {};
         $container.append(thing.$el);
       });
 
-      // Initialize all the popups
-      $.each(spec.popups, function(i, popup) {
-        popup.$el = self._makePopup(popup);
+      // Initialize all the messages
+      $.each(spec.messages, function(i, message) {
+        message.$el = self._makeMessage(message);
+      });
+
+      // Initialize all the bubbles
+      $.each(spec.bubbles, function(i, bubble) {
+        bubble.$el = self._makeBubble(bubble);
       });
     },
 
@@ -66,7 +71,7 @@ var Sesame = Sesame || {};
      * scene things (i.e., for SVG, mobile, etc.).
      */
     _makeThingElement: function(thing) {
-      // Not Implemented Here!!
+      console.error('_makeThingElement not implemented here');
       // See SVGScene._makeThingElement(...).
       //
       //var self = this;
@@ -74,45 +79,50 @@ var Sesame = Sesame || {};
     },
 
     /**
-     * Create a popup from the spec information.  If there is a selector in the
-     * popup data, create a popover with an arrow connected to the element(s)
-     * referred to by the selector.  If there is no selector, create a modal
-     * box.
+     * Create a popover with an arrow connected to the element(s) referred to by
+     * the selector.
      */
-    _makePopup: function(popup) {
+    _makeBubble: function(popup) {
       var self = this;
 
       // If there's a selector specified, then use a bootstrap popover.
-      if (popup.selector !== undefined) {
-        var $els = $(popup.selector);
-        $els.each(function(i, el) {
-          var $el = $(el);
-          $el.popover({
-            title: function() { return popup.label; },
-            content: function() { return popup.content; },
-            trigger: 'manual',
-            html: true,
-            offset: 10
-          });
-
-          $el.click(function(evt) {
-            self.hideAllPopovers();
-            $el.popover('show');
-
-            evt.stopPropagation();
-          });
+      var $els = $(popup.selector);
+      $els.each(function(i, el) {
+        var $el = $(el);
+        $el.popover({
+          title: function() { return popup.label; },
+          content: function() { return popup.content; },
+          trigger: 'manual',
+          html: true,
+          offset: 10
         });
 
-        return;
-      }
+        $el.click(function(evt) {
+          self.hideAllPopovers();
+          $el.popover('show');
 
-      // If there's no selector defined, use a modal.
-      else {
-        var $el = $('<div class="modal fade"><div class="modal-header"><a class="close" data-dismiss="modal">&times;</a><h3>' + popup.label + '</h3></div><div class="modal-body">' + popup.content + '</div></div>');
-        $el.modal();
+          evt.stopPropagation();
+        });
+      });
 
-        return $el;
-      }
+      return $els;
+    },
+
+    /**
+     * Create a modal box.
+     */
+    _makeMessage: function(message) {
+      var self = this,
+          $el = $('<div class="modal fade">' +
+                  '  <div class="modal-header">' +
+                  '    <a class="close" data-dismiss="modal">&times;</a>' +
+                  '    <h3>' + message.title + '</h3>' +
+                  '  </div>' +
+                  '  <div class="modal-body">' + message.content + '</div>' +
+                  '</div>');
+
+      $el.modal();
+      return $el;
     },
 
     /**
@@ -137,15 +147,34 @@ var Sesame = Sesame || {};
         self._renderThing(t, x, y, z, xr_x, yr_x, xr_y, yr_y, xr_z, yr_z, $el);
       });
 
-      $.each(self.spec.popups, function(i, popup) {
+      $.each(self.spec.messages, function(i, message) {
+        var $el = message.$el;
+        self._renderMessage(t, message.start, message.end, $el);
+      });
+
+      $.each(self.spec.bubbles, function(i, popup) {
         var $el = popup.$el;
         if (popup.start !== undefined && popup.end !== undefined) {
-          self._renderPopupModal(t, popup.start, popup.end, $el);
+          self._renderBubble(t, popup.start, popup.end, $el);
         }
       });
     },
 
-    _renderPopupModal: function(t, start, end, $el) {
+    _renderBubble: function(t, start, end, $el) {
+      var self = this;
+
+      if (t >= start && t < end) {
+        if ($el.filter(":visible").length == 0)
+          $el.popover('show');
+      }
+
+      else {
+        if ($el.filter(":visible").length > 0)
+          $el.popover('hide');
+      }
+    },
+
+    _renderMessage: function(t, start, end, $el) {
       var self = this;
 
       if (t >= start && t < end) {
@@ -209,7 +238,7 @@ var Sesame = Sesame || {};
     hideAllPopovers: function() {
       var self = this;
 
-      $.each(self.spec.popups, function(i, popup) {
+      $.each(self.spec.bubbles, function(i, popup) {
         if (popup.selector === undefined) return;
         var $els = $(popup.selector);
 
