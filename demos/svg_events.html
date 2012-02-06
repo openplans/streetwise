@@ -3,6 +3,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
     <script src="js/bootstrap-twipsy.js"></script>
+    <script src="js/bootstrap-extensions.js"></script>
     <script src="js/bootstrap-popover.js"></script>
     <script src="js/bootstrap-modal.js"></script>
     <script src="js/scene.js"></script>
@@ -75,6 +76,10 @@
         top: auto;
         left: 10px;
       }
+
+      .popover {
+        position: fixed;
+      }
     </style>
   </head>
 
@@ -85,6 +90,10 @@
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
           <svg id="person-standing-template">
+            <image xlink:href="../images/man-standing.svg" x="0px" y="-81px" width="31" height="90" />
+          </svg>
+
+          <svg id="tree-requester-template">
             <image xlink:href="../images/man-standing.svg" x="0px" y="-81px" width="31" height="90" />
           </svg>
 
@@ -1403,6 +1412,7 @@
             bubbles: [
               { label: "Street tree", content: '<p>New York City is planting one million new trees. Request a street tree from the <a href="http://www.nycgovparks.org/" target="_blank">Department of Parks and Recreation</a>.</p>', selector: '.tree' },
               { label: "Bike rack", content: '<p>Request a bike rack from your local community board - find your board <a href="http://www.google.com/" target="_blank">here</a>.</p>', selector: '.bikerack' },
+              { content: '<p>I requested this tree!</p>', selector: '.tree-requester', start: 120, end: 240, options: { placement: 'above' } },
             ],
 
             things: [
@@ -1450,6 +1460,7 @@
 
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 150 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 180 + 3.5 },
+              { type: "tree-requester", x: WIDE_SIDEWALK_X + 1, y: 1, z: 180 + 13.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 210 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 240 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 270 + 3.5 },

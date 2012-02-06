@@ -89,13 +89,13 @@ var Sesame = Sesame || {};
       var $els = $(popup.selector);
       $els.each(function(i, el) {
         var $el = $(el);
-        $el.popover({
-          title: function() { return popup.label; },
-          content: function() { return popup.content; },
+        $el.popover($.extend({
+          title: (popup.label ? function() { return popup.label; } : undefined),
+          content: (popup.content ? function() { return popup.content; } : undefined),
           trigger: 'manual',
           html: true,
           offset: 10
-        });
+        }, popup.options));
 
         $el.click(function(evt) {
           self.hideAllPopovers();
@@ -154,23 +154,31 @@ var Sesame = Sesame || {};
 
       $.each(self.spec.bubbles, function(i, popup) {
         var $el = popup.$el;
-        if (popup.start !== undefined && popup.end !== undefined) {
-          self._renderBubble(t, popup.start, popup.end, $el);
-        }
+        self._renderBubble(t, popup.start, popup.end, $el);
       });
     },
 
     _renderBubble: function(t, start, end, $el) {
       var self = this;
 
-      if (t >= start && t < end) {
-        if ($el.filter(":visible").length == 0)
-          $el.popover('show');
+      // For a timed bubble...
+      if (start !== undefined && end !== undefined) {
+        if (t >= start && t < end) {
+          if (!$el.data('popover').tip().hasClass('in'))
+            $el.popover('show');
+          else
+            $el.popover('place');
+        }
+
+        else {
+          if ($el.data('popover').tip().hasClass('in'))
+            $el.popover('hide');
+        }
       }
 
       else {
-        if ($el.filter(":visible").length > 0)
-          $el.popover('hide');
+        if ($el.data('popover').tip().hasClass('in'))
+          $el.popover('place');
       }
     },
 
