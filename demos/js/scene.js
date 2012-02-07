@@ -162,26 +162,27 @@ var Sesame = Sesame || {};
       var self = this;
 
       $els.each(function(i, el) {
-        var $el = $(el);
+        var $el = $(el),
+            visible = ($el.data('popover').tip().filter(':visible').length > 0);
 
         // For a timed bubble...
         if (start !== undefined && end !== undefined) {
           if (t >= start && t < end) {
-            if (!$el.data('popover').tip().hasClass('in'))
+            if (!visible)
               $el.popover('show');
             else
               $el.popover('place');
           }
 
           else {
-            if ($el.data('popover').tip().hasClass('in'))
+            if (visible)
               $el.popover('hide');
           }
         }
 
         // For a clicked bubble...
         else {
-          if ($el.data('popover').tip().filter(':visible').length > 0)
+          if (visible)
             $el.popover('place');
         }
       });
