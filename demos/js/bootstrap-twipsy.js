@@ -86,8 +86,8 @@
           .prependTo(document.body)
 
         pos = $.extend({}, this.$element.offset(), {
-          width: this.$element[0].offsetWidth || this.$element[0].getBBox().width
-        , height: this.$element[0].offsetHeight || this.$element[0].getBBox().height
+          width: this.$element[0].offsetWidth
+        , height: this.$element[0].offsetHeight
         })
 
         actualWidth = $tip[0].offsetWidth
