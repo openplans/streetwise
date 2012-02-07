@@ -97,6 +97,18 @@
             <image xlink:href="../images/man-standing.svg" x="0px" y="-81px" width="31" height="90" />
           </svg>
 
+          <svg id="person-sharing-template">
+            <image xlink:href="../images/man-standing.svg" x="0px" y="-81px" width="31" height="90" />
+          </svg>
+
+          <svg id="person-telling-about-template">
+            <image xlink:href="../images/man-standing.svg" x="0px" y="-81px" width="31" height="90" />
+          </svg>
+
+          <svg id="person-giving-survey-template">
+            <image xlink:href="../images/man-standing.svg" x="0px" y="-81px" width="31" height="90" />
+          </svg>
+
           <svg id="tree-requester-template">
             <image xlink:href="../images/man-standing.svg" x="0px" y="-81px" width="31" height="90" />
           </svg>
@@ -1417,7 +1429,10 @@
               { label: "Street tree", content: '<p>Street trees are a key feature of a livable neighborhood. Urban trees have significant and multiple benefits, from energy and water conservation to reduced road maintenance costs. A major transportation benefit is the favorable impact of mature trees on the pedestrian environment, particularly in urban areas. New evidence suggests roadside trees also increase traffic safety. While selecting, planting, and maintaining street trees present challenges, the benefits of trees far outweigh their costs. Cities can maximize these benefits through aggressive tree planting and maintenance programs.</p><p>New York City is planting one million new trees. Request a street tree from the <a href="http://www.nycgovparks.org/" target="_blank">Department of Parks and Recreation</a>.</p>', selector: '.tree' },
               { label: "Bike rack", content: '<p>Request a bike rack from your local community board - find your board <a href="http://www.google.com/" target="_blank">here</a>.</p>', selector: '.bikerack' },
               { content: '<p>I requested this tree!</p>', selector: '.tree-requester', start: 105, end: 150, options: { placement: 'above' } },
-              { content: '<p>Good for you!</p>', selector: '.person-walking', start: 120, end: 150, options: { placement: 'above' } }
+              { content: '<p>Good for you!</p>', selector: '.person-walking', start: 120, end: 150, options: { placement: 'above' } },
+              { content: '<p>Share!</p>', selector: '.person-sharing', start: 375, end: 480, options: { placement: 'above' } },
+              { content: '<p>What is this thing!</p>', selector: '.person-telling-about', start: 390, end: 480, options: { placement: 'above' } },
+              { content: '<p>Survey</p> <form><input placeholder="blah"><button>Submit</button></form>', selector: '.person-giving-survey', start: 405, end: 480, options: { placement: 'above' } }
             ],
 
             things: [
@@ -1479,18 +1494,22 @@
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 510 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 540 + 3.5 },
 
-              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
-              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
-              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
-              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
-              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
-              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
-              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
-              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
-              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
-              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
-              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
-              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 420 + Math.random()*120 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 390 + Math.random()*90 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 390 + Math.random()*90 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 390 + Math.random()*90 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 390 + Math.random()*90 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 390 + Math.random()*90 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 390 + Math.random()*90 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 390 + Math.random()*90 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 390 + Math.random()*90 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 390 + Math.random()*90 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 390 + Math.random()*90 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 390 + Math.random()*90 },
+              { type: "person-standing", x: WIDE_SIDEWALK_X - 3 - Math.random()*25, y: PARTY_BOUNCE(Math.random() + 0.5), z: 390 + Math.random()*90 },
+
+              { type: "person-sharing",       x: WIDE_SIDEWALK_X - 20, y: PARTY_BOUNCE(Math.random() + 0.5), z: 465 },
+              { type: "person-telling-about", x: WIDE_SIDEWALK_X - 16, y: PARTY_BOUNCE(Math.random() + 0.5), z: 480 },
+              { type: "person-giving-survey", x: WIDE_SIDEWALK_X - 16, y: PARTY_BOUNCE(Math.random() + 0.5), z: 495 },
 
               { type: "bikerack", x: WIDE_SIDEWALK_BIKERACK_X, y: WIDE_SIDEWALK_BIKERACK_Y, z: 240 + 13.5 },
               { type: "bikerack", x: WIDE_SIDEWALK_BIKERACK_X, y: WIDE_SIDEWALK_BIKERACK_Y, z: 300 + 13.5 },
