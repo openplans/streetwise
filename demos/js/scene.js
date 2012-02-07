@@ -122,6 +122,9 @@ var Sesame = Sesame || {};
                   '</div>');
 
       $el.modal();
+
+      $el.css(message.style || {});
+
       return $el;
     },
 
