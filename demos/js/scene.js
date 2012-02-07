@@ -158,28 +158,33 @@ var Sesame = Sesame || {};
       });
     },
 
-    _renderBubble: function(t, start, end, $el) {
+    _renderBubble: function(t, start, end, $els) {
       var self = this;
 
-      // For a timed bubble...
-      if (start !== undefined && end !== undefined) {
-        if (t >= start && t < end) {
-          if (!$el.data('popover').tip().hasClass('in'))
-            $el.popover('show');
-          else
+      $els.each(function(i, el) {
+        var $el = $(el);
+
+        // For a timed bubble...
+        if (start !== undefined && end !== undefined) {
+          if (t >= start && t < end) {
+            if (!$el.data('popover').tip().hasClass('in'))
+              $el.popover('show');
+            else
+              $el.popover('place');
+          }
+
+          else {
+            if ($el.data('popover').tip().hasClass('in'))
+              $el.popover('hide');
+          }
+        }
+
+        // For a clicked bubble...
+        else {
+          if ($el.data('popover').tip().filter(':visible').length > 0)
             $el.popover('place');
         }
-
-        else {
-          if ($el.data('popover').tip().hasClass('in'))
-            $el.popover('hide');
-        }
-      }
-
-      else {
-        if ($el.data('popover').tip().hasClass('in'))
-          $el.popover('place');
-      }
+      });
     },
 
     _renderMessage: function(t, start, end, $el) {

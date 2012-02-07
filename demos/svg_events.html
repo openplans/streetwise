@@ -1412,7 +1412,7 @@
             bubbles: [
               { label: "Street tree", content: '<p>New York City is planting one million new trees. Request a street tree from the <a href="http://www.nycgovparks.org/" target="_blank">Department of Parks and Recreation</a>.</p>', selector: '.tree' },
               { label: "Bike rack", content: '<p>Request a bike rack from your local community board - find your board <a href="http://www.google.com/" target="_blank">here</a>.</p>', selector: '.bikerack' },
-              { content: '<p>I requested this tree!</p>', selector: '.tree-requester', start: 120, end: 240, options: { placement: 'above' } },
+              { content: '<p>I requested this tree!</p>', selector: '.tree-requester', start: 105, end: 165, options: { placement: 'above' } },
             ],
 
             things: [
@@ -1505,7 +1505,6 @@
         // Adjust the position on scroll
         $window.scroll(function() {
           var t = $window.scrollTop() * 0.05;
-//          scene.hideAllPopovers();
           scene.render(t);
         });
 
