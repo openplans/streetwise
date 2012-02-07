@@ -6,23 +6,31 @@ var Sesame = Sesame || {};
   /**
    * Constructs a Scene.
    *
-     spec - The object that specifies the scene.  A spec has 'things' and
-            'popups'.  A thing must at least have a position specified by x, y,
-            and z coordinates, and a type string.  The type string will be used
-            to find the template element for the thing.
+     spec
+        The object that specifies the scene. A spec has 'things', 'messages',
+        and 'bubbles'. A thing must at least have a position specified by x, y,
+        and z coordinates, and a type string. The type string will be used to
+        find the template element for the thing.
 
-            A popup must at least have a label and a content string. Also, it
-            should either have a selector, or a pair of start and end times. If
-            it has a selector, it will be constructed as a popover, attached to
-            each of the elements identified by the selector. If it has no
-            selector but has start and end, it will be constructed as a modal
-            and appear when the time (scroll position) is between start and end.
+        A message must at least have a label, a content string, and a pair of
+        start and end times. The message will be constructed as a modal and
+        appear when the time (scroll position) is between start and end.
 
-     selector - The jQuery of the element that will serve as the container for
-            the scene elements.
+        A bubble must at least have a label, a content string, and a selector
+        designating an element or set of elements that the bubble should be
+        attached to. It can also have a pair of start and end times. It will be
+        constructed as a popover, attached to each of the elements identified by
+        its selector. If it has a start and end, it will be appear when the time
+        (scroll position) is between start and end. Otherwise it will appear
+        when the user clicks on one of the selected elements.
 
-     projection - An object defining how scene coordinates should be translated
-            into screen coordinates.
+     selector
+        The jQuery of the element that will serve as the container for the scene
+        elements.
+
+     projection
+        An object defining how scene coordinates should be translated into
+        screen coordinates.
    */
   S.Scene = function(spec, selector, projection) {
     this.selector = selector;
