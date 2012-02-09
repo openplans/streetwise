@@ -82,6 +82,11 @@
       .popover {
         position: fixed;
       }
+
+      .hover-bg {
+        display: none;
+        opacity: 0.7;
+      }
     </style>
   </head>
 
@@ -116,10 +121,12 @@
           </svg>
 
           <svg id="tree-template">
+            <image class="hover-bg" xlink:href="../images/streettree-hover.svg" x="-30px" y="-243px" width="123px" height="275px" />
             <image xlink:href="../images/streettree.svg" x="-20px" y="-233px" width="102px" height="255px" />
           </svg>
 
           <svg id="bikerack-template">
+            <image class="hover-bg" xlink:href="../images/bikerack-hover.svg" x="-10px" y="-50px" width="56px" height="80px" />
             <image xlink:href="../images/bikerack.svg" x="0px" y="-40px" width="36px" height="59px" />
           </svg>
 
@@ -1539,6 +1546,14 @@
         $('#isometric-scene').click(function() {
           scene.hideAllPopovers();
         })
+
+        $('.tree, .speedbump, .bikerack')
+          .mouseenter(function(evt) {
+            $(evt.currentTarget).find('.hover-bg').fadeIn('fast');
+          })
+          .mouseleave(function(evt) {
+            $(evt.currentTarget).find('.hover-bg').hide();
+          })
       });
     </script>
 
