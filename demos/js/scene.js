@@ -139,7 +139,7 @@ var Sesame = Sesame || {};
         , p = this._project(t, x, y, z)
 
         , anchor = $('<div class="anchor"></div>')
-            .addClass(name)
+            .attr('id', name)
             .css({
                 position: 'absolute',
                 left: '0px',
@@ -202,6 +202,15 @@ var Sesame = Sesame || {};
         var $el = popup.$el;
         self._renderBubble(s, popup.start, popup.end, $el);
       });
+
+      // Reassign links that may have been created as a result of the render.
+      $('a[href^="#"]').click(function(evt) {
+        var link = this;
+
+        evt.preventDefault();
+        $.scrollTo($(link).attr('href'), 1000);
+      });
+
     },
 
     _renderBubble: function(s, start, end, $els) {

@@ -32,7 +32,7 @@
         position: fixed;
       }
 
-      .anchor.about, .anchor.feedback {
+      #about, #feedback {
         width: 600px;
         margin: 150px auto 150px auto;
         padding: 1em;
@@ -97,7 +97,7 @@
     <div class="topbar">
       <div class="fill">
         <div class="container-fluid">
-          <a class="brand" href="#">
+          <a class="brand" href="#beginning">
             Change St.
           </a>
         </div>
@@ -208,13 +208,13 @@
       </svg>
     </div>
 
-    <section class="anchor about">
+    <section id="about">
       <header>
         <h1>About</h1>
       </header>
     </section>
 
-    <section class="anchor feedback">
+    <section id="feedback">
       <header>
         <h1>Feedback</h1>
       </header>
@@ -392,9 +392,17 @@
             $(evt.currentTarget).find('.hover-bg').hide();
           })
         
+        $('[href^="#"]').click(function(evt) {
+          // NOTE: This will not reassign click for, say, links in bubbles and
+          //       messages.  For that behavior, see Scene.render.
+          var link = this;
+
+          evt.preventDefault();
+          $.scrollTo(link.attr('href'), 1000);
+        });
+
         $(window).hashchange(function(evt) {
-          var anchorName = location.hash.substr(1);
-          $.scrollTo('.anchor.' + anchorName, 1000);
+          $.scrollTo(location.hash, 1000);
         })
       });
     </script>
