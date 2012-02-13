@@ -6,6 +6,7 @@
     <script src="js/bootstrap-extensions.js"></script>
     <script src="js/bootstrap-popover.js"></script>
     <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
     <script src="js/jquery.scrollTo-1.4.2.js"></script>
     <script src="js/jquery.ba-hashchange.js"></script>
     <script src="js/scene.js"></script>
@@ -32,7 +33,8 @@
         position: fixed;
       }
 
-      #about, #feedback {
+      #about, #feedback,
+      .anchor.about, .anchor.feedback {
         width: 600px;
         margin: 150px auto 150px auto;
         padding: 1em;
@@ -97,9 +99,26 @@
     <div class="topbar">
       <div class="fill">
         <div class="container-fluid">
+          
           <a class="brand" href="#beginning">
             Change St.
           </a>
+          
+          <ul class="nav secondary-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle">Jump to...</a>
+              <ul class="dropdown-menu">
+                <li><a href="#street-trees">Street Trees!</a></li>
+                <li><a href="#bike-racks">Bike Racks</a></li>
+                <li><a href="#speed-bumps">Speed Bumps!</a></li>
+                <li><a href="#block-party">Block Party!</a></li>
+                <li class="divider"></li>
+                <li><a href="#about">About Change St.</a></li>
+                <li><a href="#feedback">Feedback</a></li>
+              </ul>
+            </li>
+          </ul>
+        
         </div>
       </div>
     </div>
@@ -208,13 +227,13 @@
       </svg>
     </div>
 
-    <section id="about">
+    <section class="anchor about">
       <header>
         <h1>About</h1>
       </header>
     </section>
 
-    <section id="feedback">
+    <section class="anchor feedback">
       <header>
         <h1>Feedback</h1>
       </header>
@@ -392,18 +411,18 @@
             $(evt.currentTarget).find('.hover-bg').hide();
           })
         
-        $('[href^="#"]').click(function(evt) {
-          // NOTE: This will not reassign click for, say, links in bubbles and
-          //       messages.  For that behavior, see Scene.render.
-          var link = this;
-
-          evt.preventDefault();
-          $.scrollTo(link.attr('href'), 1000);
-        });
+        // NOTE: This will not reassign click for, say, links in bubbles and
+        //       messages.  For that behavior, see Scene.render.
+        // scene._takeOverHashchange();
 
         $(window).hashchange(function(evt) {
-          $.scrollTo(location.hash, 1000);
-        })
+          if (location.hash != '#') {
+            var anchorName = location.hash.substr(1);
+            $.scrollTo('.anchor.' + anchorName, 1000);
+          }
+        });
+
+        $('.topbar').dropdown();
       });
     </script>
 

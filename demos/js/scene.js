@@ -139,7 +139,7 @@ var Sesame = Sesame || {};
         , p = this._project(t, x, y, z)
 
         , anchor = $('<div class="anchor"></div>')
-            .attr('id', name)
+            .addClass(name)
             .css({
                 position: 'absolute',
                 left: '0px',
@@ -204,14 +204,23 @@ var Sesame = Sesame || {};
       });
 
       // Reassign links that may have been created as a result of the render.
-      $('a[href^="#"]').click(function(evt) {
-        var link = this;
-
-        evt.preventDefault();
-        $.scrollTo($(link).attr('href'), 1000);
-      });
+      // self._takeOverHashchange();
 
     },
+
+    // _takeOverHashchange: function() {
+    //     $('[href^="#"]').click(function(evt) {
+    //       var link = $(this);
+
+    //       if (link.attr('href') != '#') {
+    //         evt.preventDefault();
+    //         $.scrollTo(link.attr('href'), 1000, {
+    //           // onAfter: function() { location.hash = link.attr('href') }
+    //         });
+    //         location.hash = link.attr('href')
+    //       }
+    //     });
+    // },
 
     _renderBubble: function(s, start, end, $els) {
       var self = this;
