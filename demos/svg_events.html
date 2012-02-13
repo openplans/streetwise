@@ -6,6 +6,8 @@
     <script src="js/bootstrap-extensions.js"></script>
     <script src="js/bootstrap-popover.js"></script>
     <script src="js/bootstrap-modal.js"></script>
+    <script src="js/jquery.scrollTo-1.4.2.js"></script>
+    <script src="js/jquery.ba-hashchange.js"></script>
     <script src="js/scene.js"></script>
 
     <style>
@@ -30,7 +32,7 @@
         position: fixed;
       }
 
-      #about, #feedback {
+      .anchor.about, .anchor.feedback {
         width: 600px;
         margin: 150px auto 150px auto;
         padding: 1em;
@@ -206,13 +208,13 @@
       </svg>
     </div>
 
-    <section id="about">
+    <section class="anchor about">
       <header>
         <h1>About</h1>
       </header>
     </section>
 
-    <section id="feedback">
+    <section class="anchor feedback">
       <header>
         <h1>Feedback</h1>
       </header>
@@ -223,10 +225,18 @@
 
     <script>
       var WORLD_PROJECTION = {
-            XR_x: 12, YR_x: -7,
-            XR_y:  0, YR_y: -10,
-            XR_z: 12, YR_z:  7
+            xr_x: 12, yr_x: -7,
+            xr_y:  0, yr_y: -10,
+            xr_z: 12, yr_z:  7
           },
+
+          WORLD_VELOCITY = {
+            x: 0,
+            y: 0,
+            z: 1
+          },
+
+          SCROLL_SPEED = 0.05,
 
           ROAD_X = -20,
           ROAD_Y = 0,
@@ -245,17 +255,22 @@
           SPEEDBUMP_NORTH_X = WIDE_SIDEWALK_X - 14,
           SPEEDBUMP_SOUTH_X = SPEEDBUMP_NORTH_X - 15,
 
-          WALKING_BOUNCE = function(t) { return 2 - Math.abs(Math.cos(t/5.0)); },
-          PARTY_BOUNCE = function(c) { return function(t) { return WALKING_BOUNCE(t*c) * 3; }; }
+          WALKING_BOUNCE = function(s) { return 2 - Math.abs(Math.cos(s/5.0)); },
+          PARTY_BOUNCE = function(c) { return function(s) { return WALKING_BOUNCE(s*c) * 3; }; }
 
           spec = {
             messages: [
               { title: "Welcome to CHANGE STREET (NYC Edition)",
                 content: "How could your block be different? Let's take a walk down Change St.",
-                start: 0, end: 30, style: { left: "50%", marginLeft: "-250px", top: "10px", bottom: "auto" } },
-              { title: "Street trees!", content: '', start: 60, end: 120 },
-              { title: "Bike racks!", content: '', start: 150, end: 210 },
-              { title: "Speed bumps!", content: '', start: 240, end: 300 }
+                start: 0, end: 30, anchorName: 'beginning',
+                style: { left: "50%", marginLeft: "-250px", top: "10px", bottom: "auto" } },
+              { title: "Street trees!", content: '', start: 60, end: 120, anchorName: 'street-trees' },
+              { title: "Bike racks!", content: '', start: 150, end: 210, anchorName: 'bike-racks' },
+              { title: "Speed bumps!", content: '', start: 240, end: 300, anchorName: 'speed-bumps' }
+            ],
+
+            anchors: [
+              { name: 'block-party', position: 420 }
             ],
 
             bubbles: [
@@ -309,7 +324,7 @@
               { type: "brownstone", x: WIDE_SIDEWALK_X + 8, y: WIDE_SIDEWALK_Y + 1, z: 520 },
 
               // This person will quickly walk down the street.
-              { type: "person-walking", x: WIDE_SIDEWALK_X + 5, y: WALKING_BOUNCE, z: function(t) { return 85 + t; } },
+              { type: "person-walking", x: WIDE_SIDEWALK_X + 5, y: WALKING_BOUNCE, z: function(s) { return 85 + s; } },
 
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 150 + 3.5 },
               { type: "tree", x: WIDE_SIDEWALK_TREE_X, y: WIDE_SIDEWALK_TREE_Y, z: 180 + 3.5 },
@@ -354,14 +369,14 @@
 
       $(document).ready(function() {
         var $window = $(window);
-            scene = new Sesame.SVGScene(spec, '#scene-buffer', WORLD_PROJECTION);
+            scene = new Sesame.SVGScene(spec, '#scene-buffer', SCROLL_SPEED, WORLD_PROJECTION, WORLD_VELOCITY);
 
         // Init the scene
         scene.render(0);
 
         // Adjust the position on scroll
         $window.scroll(function() {
-          var t = $window.scrollTop() * 0.05;
+          var t = $window.scrollTop();
           scene.render(t);
         });
 
@@ -376,6 +391,11 @@
           .mouseleave(function(evt) {
             $(evt.currentTarget).find('.hover-bg').hide();
           })
+        
+        $(window).hashchange(function(evt) {
+          var anchorName = location.hash.substr(1);
+          $.scrollTo('.anchor.' + anchorName, 1000);
+        })
       });
     </script>
 

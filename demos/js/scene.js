@@ -32,13 +32,20 @@ var Sesame = Sesame || {};
         An object defining how scene coordinates should be translated into
         screen coordinates.
    */
-  S.Scene = function(spec, selector, projection) {
+  S.Scene = function(spec, selector, scrollSpeed, projection, velocity) {
     this.selector = selector;
+
     this.projection = $.extend({
-        XR_x: 1,     YR_x: 0,
-        XR_y: 0,     YR_y: -1,
-        XR_z: 0.707, YR_z: 0.707
+        xr_x: 1,     yr_x: 0,
+        xr_y: 0,     yr_y: -1,
+        xr_z: 0.707, yr_z: 0.707
       }, projection);
+
+    this.velocity = $.extend({
+        x: 0, y:0, z:1
+      }, velocity);
+    
+    this.speed = scrollSpeed;
 
     this.initialize(spec);
     return this;
@@ -70,6 +77,11 @@ var Sesame = Sesame || {};
       // Initialize all the bubbles
       $.each(spec.bubbles, function(i, bubble) {
         bubble.$el = self._makeBubble(bubble);
+      });
+
+      // Initialize all the anchors (that didn't come with messages)
+      $.each(spec.anchors, function(i, anchor) {
+        anchor.$el = self._makeAnchor(anchor.name, anchor.position);
       });
     },
 
@@ -117,6 +129,30 @@ var Sesame = Sesame || {};
     },
 
     /**
+     * Create a scene anchor.  The scene will handle smoothly scrolling to
+     * these anchors.
+     */
+    _makeAnchor: function(name, s) {
+      // Project the point (x=0, y=0, z=t) at t=0 into screen coordinates
+      // to find the scroll position for the anchor.
+      var x = 0, y = 0, z = s, t = 0
+        , p = this._project(t, x, y, z)
+
+        , anchor = $('<div class="anchor"></div>')
+            .addClass(name)
+            .css({
+                position: 'absolute',
+                left: '0px',
+                top: s / this.speed + 'px'
+              });
+      
+      console.log(s)
+      console.log(this.speed);
+      
+      $('body').append(anchor);
+    },
+
+    /**
      * Create a modal box.
      */
     _makeMessage: function(message) {
@@ -133,43 +169,42 @@ var Sesame = Sesame || {};
 
       $el.css(message.style || {});
 
+      if (message.anchorName) {
+        self._makeAnchor(message.anchorName, message.start);
+      }
+
       return $el;
     },
 
     /**
      * Render all of the objects in the scene.
      */
-    render: function(t) {
-      var self = this;
+    render: function(ps) {
+      var self = this
+        , s = ps * self.speed;
 
       $.each(self.spec.things, function(i, thing) {
         var $el = thing.$el,
-            xr_x = (thing.xr_x !== undefined ? thing.xr_x : self.projection.XR_x),
-            yr_x = (thing.yr_x !== undefined ? thing.yr_x : self.projection.YR_x),
-            xr_y = (thing.xr_y !== undefined ? thing.xr_y : self.projection.XR_y),
-            yr_y = (thing.yr_y !== undefined ? thing.yr_y : self.projection.YR_y),
-            xr_z = (thing.xr_z !== undefined ? thing.xr_z : self.projection.XR_z),
-            yr_z = (thing.yr_z !== undefined ? thing.yr_z : self.projection.YR_z),
 
-            x = ($.isFunction(thing.x) ? thing.x(t, $el) : thing.x),
-            y = ($.isFunction(thing.y) ? thing.y(t, $el) : thing.y),
-            z = ($.isFunction(thing.z) ? thing.z(t, $el) : thing.z);
-
-        self._renderThing(t, x, y, z, xr_x, yr_x, xr_y, yr_y, xr_z, yr_z, $el);
+            x = ($.isFunction(thing.x) ? thing.x(s, $el) : thing.x),
+            y = ($.isFunction(thing.y) ? thing.y(s, $el) : thing.y),
+            z = ($.isFunction(thing.z) ? thing.z(s, $el) : thing.z);
+      
+        self._renderThing(s, x, y, z, thing.projection, $el);
       });
 
       $.each(self.spec.messages, function(i, message) {
         var $el = message.$el;
-        self._renderMessage(t, message.start, message.end, $el);
+        self._renderMessage(s, message.start, message.end, $el);
       });
 
       $.each(self.spec.bubbles, function(i, popup) {
         var $el = popup.$el;
-        self._renderBubble(t, popup.start, popup.end, $el);
+        self._renderBubble(s, popup.start, popup.end, $el);
       });
     },
 
-    _renderBubble: function(t, start, end, $els) {
+    _renderBubble: function(s, start, end, $els) {
       var self = this;
 
       $els.each(function(i, el) {
@@ -178,7 +213,7 @@ var Sesame = Sesame || {};
 
         // For a timed bubble...
         if (start !== undefined && end !== undefined) {
-          if (t >= start && t < end) {
+          if (s >= start && s < end) {
             if (!visible)
               $el.popover('show');
             else
@@ -199,18 +234,52 @@ var Sesame = Sesame || {};
       });
     },
 
-    _renderMessage: function(t, start, end, $el) {
+    _renderMessage: function(s, start, end, $el) {
       var self = this;
-
-      if (t >= start && t < end) {
-        if ($el.filter(":visible").length == 0)
-          $el.modal('show');
+      
+      if (s >= start && s < end) {
+        if ($el.filter(":visible").length == 0){
+        console.log(s)
+          $el.modal('show');}
       }
 
       else {
         if ($el.filter(":visible").length > 0)
           $el.modal('hide');
       }
+    },
+
+    _offset: function(s, x, y, z, V) {
+      // Offset the coordinates based on the scroll offset and the velocity.
+      var self = this
+        , V = V || self.velocity
+
+        , tx = (x - s*V.x)
+        , ty = (y - s*V.y)
+        , tz = (z - s*V.z);
+      
+      return {'x': tx, 'y': ty, 'z': tz};
+    },
+
+    _project: function(s, x, y, z, P, V) {
+      // Calculate the projected x (px) and y (py) values from the thing's
+      // world x, y, and z values using world projection matrix P and velocity
+      // vector V.  This is the matrix transformation:
+      //
+      //                        [xr_x, yr_x]
+      //  ([x, y, z] - s * V) * [xr_y, yr_y] = [px, py]
+      //                        [xr_z, yr_z]
+      //
+      var self = this
+        , P = P || self.projection
+        , V = V || self.velocity
+
+        , t = self._offset(s, x, y, z, V)
+
+        , px = t.x*P.xr_x + t.y*P.xr_y + t.z*P.xr_z
+        , py = t.x*P.yr_x + t.y*P.yr_y + t.z*P.yr_z;
+      
+      return {'x': px, 'y': py};
     },
 
     /**
@@ -222,38 +291,20 @@ var Sesame = Sesame || {};
      * y - starting y
      * z - time at which x,y will actually be there on the screen for realz
      *
-     * xr_x - the rate of change of screen x position with respect to a unit
-     *        of change in the isometric world's x axis.
-     * yr_x - the rate of change of screen y position with respect to a unit
-     *        of change in the isometric world's x axis.
-     * xr_y - the rate of change of screen x position with respect to a unit
-     *        of change in the isometric world's y axis.
-     * yr_y - the rate of change of screen y position with respect to a unit
-     *        of change in the isometric world's y axis.
-     * xr_z - the rate of change of screen x position with respect to a unit
-     *        of change in the isometric world's z axis.
-     * yr_z - the rate of change of screen y position with respect to a unit
-     *        of change in the isometric world's z axis.
+     * P - the projection matrix containing the rates of change of screen x
+     *     and y positions with respect to a unit of change in the isometric
+     *     world's x, y, or z axes.
      *
      * $el - jQuery object of the element we're positioning
      */
-    _renderThing: function(s, x, y, z, xr_x, yr_x, xr_y, yr_y, xr_z, yr_z, $el) {
-      // Calculate the projected x (px) and y (py) values from the thing's
-      // world x, y, and z values using the xr and yr components.  Offset the
-      // z value by s.  This is the matrix transformation:
-      //
-      //                  [xr_x, yr_x]
-      //  [x, y, (z-s)] * [xr_y, yr_y] = [px, py]
-      //                  [xr_z, yr_z]
-      //
+    _renderThing: function(s, x, y, z, P, $el) {
       var self = this
-        , px = x*xr_x + y*xr_y + (z-s)*xr_z
-        , py = x*yr_x + y*yr_y + (z-s)*yr_z;
+        , p = self._project(s, x, y, z, P);
 
       $el.css({
         position: 'fixed',
-        left: px+'px',
-        top:  py+'px'
+        left: p.x+'px',
+        top:  p.y+'px'
       });
     },
 
@@ -281,21 +332,18 @@ var Sesame = Sesame || {};
   /**
    * A subclass of Scene that assumes an SVG context.
    */
-  S.SVGScene = function(spec, selector, projection) {
-    return S.Scene.call(this, spec, selector, projection)
+  S.SVGScene = function(spec, selector, scrollSpeed, projection, velocity) {
+    return S.Scene.call(this, spec, selector, scrollSpeed, projection, velocity);
   };
 
   $.extend(S.SVGScene.prototype, S.Scene.prototype, {
-    _renderThing: function(s, x, y, z, xr_x, yr_x, xr_y, yr_y, xr_z, yr_z, $el) {
-      var self = this;
-
-      // See the comment for Scene._renderThing(...) for more information.
-      var px = x*xr_x + y*xr_y + (z-s)*xr_z
-        , py = x*yr_x + y*yr_y + (z-s)*yr_z;
+    _renderThing: function(s, x, y, z, P, $el) {
+      var self = this
+        , p = self._project(s, x, y, z, P);
 
       $el
-        .attr('x', px+'px')
-        .attr('y', py+'px')
+        .attr('x', p.x+'px')
+        .attr('y', p.y+'px')
         .css('overflow', 'visible');
     },
 
