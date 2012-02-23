@@ -125,7 +125,7 @@
               <a href="#" class="dropdown-toggle">Jump to...</a>
               <ul class="dropdown-menu">
                 <li><a href="#street-trees">Street Trees!</a></li>
-                <li><a href="#bike-racks">Bike Racks</a></li>
+                <li><a href="#bike-racks">Bike Racks!</a></li>
                 <li><a href="#speed-bumps">Speed Bumps!</a></li>
                 <li><a href="#block-party">Block Party!</a></li>
                 <li class="divider"></li>
@@ -252,6 +252,11 @@
     <section class="anchor about">
       <header>
         <h1>About</h1>
+        <p>Change Street is an experiment from <a href="http://OpenPlans/civicworks">OpenPlans</a>.</p>
+        
+        <p>We're working on tools for information sharing around neighborhood planning issues. One of the information challenges of local change is knowing where to start, and ensuring that the information you discover is actually useful on the ground. For example, it's not useful to read about the NYC CityRacks program if you like in Philly. Streets Wiki is useful, but it won't be widely popular because it's so text focused..</p>
+        <p>'</p><p> 
+          
       </header>
     </section>
 
@@ -301,8 +306,8 @@
 
           spec = {
             messages: [
-              { title: "Welcome to CHANGE STREET (NYC Edition)",
-                content: "How could your block be different? Let's take a walk down Change St.",
+              { title: "Welcome to Change Street",
+                content: "How could your block change for the better? Let's take a walk down Change St (NYC edition).",
                 start: 0, end: 30, anchorName: 'beginning',
                 style: { left: "50%", marginLeft: "-250px", top: "10px", bottom: "auto" } },
               { title: "Street trees!", content: '', start: 60, end: 120, anchorName: 'street-trees' },
@@ -315,13 +320,13 @@
             ],
 
             bubbles: [
-              { label: "Street tree", content: '<p>Street trees are a key feature of a livable neighborhood. Urban trees have significant and multiple benefits, from energy and water conservation to reduced road maintenance costs. A major transportation benefit is the favorable impact of mature trees on the pedestrian environment, particularly in urban areas. New evidence suggests roadside trees also increase traffic safety. While selecting, planting, and maintaining street trees present challenges, the benefits of trees far outweigh their costs. Cities can maximize these benefits through aggressive tree planting and maintenance programs.</p><p>New York City is planting one million new trees. Request a street tree from the <a href="http://www.nycgovparks.org/" target="_blank">Department of Parks and Recreation</a>.</p>', selector: '.tree' },
-              { label: "Bike rack", content: '<p>Request a bike rack from your local community board - find your board <a href="http://www.google.com/" target="_blank">here</a>.</p>', selector: '.bikerack' },
+              { label: "Street tree", content: '<p>New York City is planting one million new trees. Request a street tree from the <a href="http://www.nycgovparks.org/" target="_blank">Department of Parks and Recreation</a>.</p><hr/><p>Got street tree problems? Submit a <a href="http://www.nycgovparks.org/services/forestry/request">Forest Service request online</a>.</p><hr/><p>Street trees are a key feature of a livable neighborhood. Urban trees have significant and multiple benefits, from energy and water conservation to reduced road maintenance costs. A major transportation benefit is the favorable impact of mature trees on the pedestrian environment, particularly in urban areas. New evidence suggests roadside trees also increase traffic safety. Read more on <a href="http://streetswiki.wikispaces.com/Street+Trees">Streetswiki</a>.</p>', selector: '.tree' },
+              { label: "Bike rack", content: '<p>Request a bike rack from your local community board - find your board <a href="http://www.google.com/" target="_blank">here</a>.</p><hr/><p>Read more about <a href="http://www.nyc.gov/html/dot/html/bicyclists/bikerack.shtml">the NYC City Racks program</a>.', selector: '.bikerack' },
               { content: '<p>I requested this tree!</p>', selector: '.tree-requester', start: 105, end: 150, options: { placement: 'above' } },
               { content: '<p>Good for you!</p>', selector: '.person-walking', start: 120, end: 150, options: { placement: 'above' } },
               { content: '<p>Hooray, what a livable street!</p>', selector: '.person-yelling-lets-party', start: 375, end: 480, options: { placement: 'above' } },
-              { content: '<p>Let\'s Party!</p>', selector: '.person-yelling-hooray', start: 390, end: 480, options: { placement: 'above' } },
-              { content: '<p><a href="#about">What is this place?</a></p>', selector: '.person-what-is-this-place', start: 405, end: 480, options: { placement: 'above' } }
+              { content: '<p>It\'s a block party!</p><hr/><p>For a block party, request a street closure permit from the <a href="http://www.nyc.gov/html/cecm/html/office/office.shtml">city\'s permit office</a>.</p><hr/><p>Read more about block parties <a href="http://streetswiki.wikispaces.com/Neighborhood+Block+Parties">on Streetswiki</a>.</p>', selector: '.person-yelling-hooray', start: 390, end: 480, options: { placement: 'above' } },
+              { content: '<p><a href="#about">What is this place?</a></p>', selector: '.person-what-is-this-place', start: 405, end: 480, options: { placement: 'above' } }http://streetswiki.wikispaces.com/Neighborhood+Block+Parties
             ],
 
             things: [
