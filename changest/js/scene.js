@@ -44,7 +44,7 @@ var Sesame = Sesame || {};
     this.velocity = $.extend({
         x: 0, y:0, z:1
       }, velocity);
-    
+
     this.speed = scrollSpeed;
 
     this.initialize(spec);
@@ -121,6 +121,8 @@ var Sesame = Sesame || {};
           self.hideAllPopovers();
           $el.popover('show');
 
+          $(self).trigger('show_bubble', [$el, popup.selector]);
+
           evt.stopPropagation();
         });
       });
@@ -145,10 +147,7 @@ var Sesame = Sesame || {};
                 left: '0px',
                 top: s / this.speed + 'px'
               });
-      
-      console.log(s)
-      console.log(this.speed);
-      
+
       $('body').append(anchor);
     },
 
@@ -189,7 +188,7 @@ var Sesame = Sesame || {};
             x = ($.isFunction(thing.x) ? thing.x(s, $el) : thing.x),
             y = ($.isFunction(thing.y) ? thing.y(s, $el) : thing.y),
             z = ($.isFunction(thing.z) ? thing.z(s, $el) : thing.z);
-      
+
         self._renderThing(s, x, y, z, thing.projection, $el);
       });
 
@@ -254,10 +253,9 @@ var Sesame = Sesame || {};
 
     _renderMessage: function(s, start, end, $el) {
       var self = this;
-      
+
       if (s >= start && s < end) {
         if ($el.filter(":visible").length == 0){
-        console.log(s)
           $el.modal('show');}
       }
 
@@ -275,7 +273,7 @@ var Sesame = Sesame || {};
         , tx = (x - s*V.x)
         , ty = (y - s*V.y)
         , tz = (z - s*V.z);
-      
+
       return {'x': tx, 'y': ty, 'z': tz};
     },
 
@@ -296,7 +294,7 @@ var Sesame = Sesame || {};
 
         , px = t.x*P.xr_x + t.y*P.xr_y + t.z*P.xr_z
         , py = t.x*P.yr_x + t.y*P.yr_y + t.z*P.yr_z;
-      
+
       return {'x': px, 'y': py};
     },
 

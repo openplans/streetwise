@@ -107,7 +107,7 @@
       })();
 
     </script>
-    
+
   </head>
 
   <body>
@@ -115,11 +115,11 @@
     <div class="topbar">
       <div class="fill">
         <div class="container-fluid">
-          
+
           <a class="brand" href="#beginning">
             Change St.
           </a>
-          
+
           <ul class="nav secondary-nav">
             <li class="dropdown">
               <a href="#" class="dropdown-toggle">Jump to...</a>
@@ -134,7 +134,7 @@
               </ul>
             </li>
           </ul>
-        
+
         </div>
       </div>
     </div>
@@ -225,7 +225,7 @@
           <svg id="sidewalk-narrow-template">
             <svg x="48px" y="-66px" width="768.998px" height="459.104px"> <g> <path fill="#999999" d="M48.751,0.067c-0.155-0.09-0.349-0.09-0.504,0L0.25,28.066c0,0,0,0-0.001,0s0,0-0.001,0H0.247 c-0.033,0.02-0.05,0.055-0.077,0.078c-0.036,0.035-0.079,0.062-0.104,0.105C0.023,28.326,0,28.412,0,28.5v10.105 c0,0.178,0.094,0.34,0.248,0.432l1.242,0.724l120,70l119.786,69.874l120.219,70.128l119.992,69.995l120.006,70.004l118.754,69.273 c0,0,0,0.002,0.002,0.002c0.076,0.047,0.164,0.066,0.25,0.066s0.174-0.021,0.25-0.066l48.002-28 c0.152-0.09,0.248-0.254,0.248-0.434V420.5c0-0.18-0.096-0.346-0.248-0.434L48.751,0.067z"/> <g> <polygon fill="#CCCCCC" points="767.504,420.498 648.496,351.078 601.49,378.5 720.496,447.92 		"/> <polygon fill="#CCCCCC" points="600.496,377.922 647.504,350.498 528.496,281.078 481.488,308.5 		"/> <polygon fill="#CCCCCC" points="361.492,238.5 480.496,307.92 527.504,280.498 408.496,211.078 		"/> <polygon fill="#CCCCCC" points="241.492,168.5 360.5,237.92 407.506,210.5 288.498,141.078 		"/> <polygon fill="#CCCCCC" points="121.492,98.5 240.5,167.92 287.508,140.498 168.5,71.078 		"/> <polygon fill="#CCCCCC" points="120.5,97.92 167.506,70.498 48.5,1.078 1.49,28.5 		"/> </g> </g> </svg>
           </svg>
-          
+
           <!-- This sidewalk transition is only 4 units wide at its starting point, but we want it to match up easily with the narrow and wide sidewalks, so we'll move it back an additional 4 units. -->
 
           <svg id="sidewalk-transition-template">
@@ -263,7 +263,7 @@
         <h1>Feedback</h1>
       </header>
 
-      <iframe src="https://docs.google.com/a/openplans.org/spreadsheet/embeddedform?formkey=dFFWaEZ2dFVtRS1nR2NEQmZOUjNDMVE6MQ" 
+      <iframe src="https://docs.google.com/a/openplans.org/spreadsheet/embeddedform?formkey=dFFWaEZ2dFVtRS1nR2NEQmZOUjNDMVE6MQ"
           width="100%" height="625" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
     </section>
 
@@ -437,7 +437,7 @@
           .mouseleave(function(evt) {
             $(evt.currentTarget).find('.hover-bg').hide();
           })
-        
+
         // NOTE: This will not reassign click for, say, links in bubbles and
         //       messages.  For that behavior, see Scene.render.
         // scene._takeOverHashchange();
@@ -446,8 +446,15 @@
           if (location.hash != '#') {
             var anchorName = location.hash.substr(1);
             $.scrollTo('.anchor.' + anchorName, 1000);
+
+            // Let Google Analytics know.
+            _gaq.push(['_trackPageview', '/#' + anchorName]);
           }
         });
+
+        $(scene).bind('show_bubble', function(evt, $thing, selector) {
+          _gaq.push(['_trackPageview', '/#clicked-' + selector]);
+        })
 
         $('.topbar').dropdown();
       });
